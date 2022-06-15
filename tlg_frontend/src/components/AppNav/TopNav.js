@@ -73,7 +73,7 @@ export default function MenuAppBar() {
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="static" sx={{bgcolor:'2a2f31'}}>
           <Toolbar>
             <IconButton
               size="large"
