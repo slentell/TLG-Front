@@ -13,6 +13,9 @@ const ImageGallery = () => {
   // view dummy images for now
   const itemData = [
     {
+      img: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Lasha_Talakhadze_Rio_2016.jpg",
+    },
+    {
       img: "https://secure.img1-fg.wfcdn.com/im/26406397/resize-h445%5Ecompr-r85/1828/182899244/Charmander+Figure+Statue.jpg",
     },
     {
@@ -23,9 +26,6 @@ const ImageGallery = () => {
     },
     {
       img: "https://i0.wp.com/post.greatist.com/wp-content/uploads/sites/2/2021/07/GRT-375873-Heres-How-to-Rack-Up-the-Right-Eating-Plan-As-a-Weight-Lifter_Header.jpg?w=1155&h=1528",
-    },
-    {
-      img: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Lasha_Talakhadze_Rio_2016.jpg",
     },
     {
       img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQd8476loJvJWJIvjptI6nvyE19mJ6qH2Ckw&usqp=CAU",
@@ -54,7 +54,6 @@ const ImageGallery = () => {
           id="select-image"
           style={{ display: "none" }}
           onChange={(e) => setSelectedImage(e.target.files[0])}
-          onSubmit={(e) => handleSubmit(e)}
         />
         <label htmlFor="select-image">
           <Button variant="contained" color="primary" component="span">
@@ -64,11 +63,7 @@ const ImageGallery = () => {
       </div>
     );
   };
-  const handleSubmit = (e) => {
-    console.log("in handle submit");
-    console.log("the event is ", e.target.files[0]);
-    setImageGallery([...imageGallery, { img: e.target.files[0] }]);
-  };
+
   const previewPhoto = () => {
     return (
       <div>
@@ -86,7 +81,7 @@ const ImageGallery = () => {
     <Container>
       {fileInput()}
       {previewPhoto()}
-      <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+      <ImageList sx={{ width: 1100, height: 1000 }} cols={3} rowHeight={164}>
         {imageGallery.map((item) => (
           <ImageListItem key={item.img}>
             <img

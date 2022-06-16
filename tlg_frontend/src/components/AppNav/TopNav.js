@@ -32,7 +32,7 @@ import { Link } from "react-router-dom";
 
 const data = [
   { name: "Home", icon: <HomeOutlined />, path: "/" },
-  { name: "Add a lift sesh", icon: <AddIcon />, path: "/" },
+  { name: "Add a lift sesh", icon: <AddIcon />, path: "/add-lift-session" },
   { name: "Track your progress", icon: <AssessmentIcon />, path: "/" },
   { name: "View Posts", icon: <InboxOutlined />, path: "/" },
   { name: "Bell Ringers", icon: <NotificationsActiveIcon />, path: "/" },
