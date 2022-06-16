@@ -12,7 +12,7 @@ import {
 import { Container } from "@mui/system";
 
 const Posts = () => {
-  // const [list, setList] = useState();
+  // const [postList, setPostList] = useState();
 
   const postList = [
     {
