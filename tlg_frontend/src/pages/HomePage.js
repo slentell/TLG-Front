@@ -1,6 +1,6 @@
 
 
-import {Container, Typography, Box }  from '@mui/material'
+import {Container, Typography }  from '@mui/material'
 import React from 'react'
 import Hero from '../components/Hero/Hero'
 import Section from '../components/Section/Section'
