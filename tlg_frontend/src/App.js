@@ -8,7 +8,7 @@ import AthleteDashboard from './pages/AthleteDashboard'
 import SignUp from './pages/Signup'
 import SignIn from './pages/SignIn'
 import ImageGallery from './pages/ImageGallery'
-import AddLiftSession from './pages/AddLiftSession'
+import AddLift from './components/AddLift/AddLift'
 // import AppNav from '../components/AppNav/AppNav'
 import MenuAppBar from './components/AppNav/TopNav';
 import { AppContextProvider } from './Providers/AppContextProvider';
@@ -28,7 +28,7 @@ function App() {
           <Route path='/signup' element={ <SignUp /> } />
           <Route path='/signin' element={ <SignIn /> } />
           <Route path='/images' element={ <ImageGallery /> } />
-          <Route path='/add-lift-session' element={ <AddLiftSession /> } />
+          <Route path='/add-lift-session' element={ <AddLift /> } />
           {/* <Route path='/bell-ringers' element={ <ImageGallery /> } />
           <Route path='/calendar' element={ <ImageGallery /> } />
           <Route path='/chat' element={ <ImageGallery /> } /> */}
