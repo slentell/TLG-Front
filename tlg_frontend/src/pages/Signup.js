@@ -176,11 +176,9 @@ export default function SignUp() {
                 </Link>
               </Grid>
             </Grid>
-
-        <Copyright sx={{ mt: 5 }} />
+            <Copyright sx={{ mt: 5 }} />
           </Box>
-          </Box>
-        </Grid>
+        </Box>
       </Grid>
     </ThemeProvider>
   );
