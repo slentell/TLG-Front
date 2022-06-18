@@ -10,11 +10,10 @@ import {
   Grid,
   Box,
   Typography,
-  Container,
+  Paper
 } from "@mui/material/";
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Copyright(props) {
@@ -44,19 +43,40 @@ export default function SignUp() {
     console.log({
       email: data.get("email"),
       password: data.get("password"),
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName")
     });
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1521805103424-d8f8430e8933?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: (t) =>
+              t.palette.mode === "light"
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <Box
           sx={{
             marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            bgcolor: "whitesmoke"
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -120,7 +140,7 @@ export default function SignUp() {
                   fullWidth
                   name="password2"
                   label="Enter Password Again"
-                  type="password2"
+                  type="password"
                   id="password2"
                   autoComplete="new-password2"
                 />
@@ -128,7 +148,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
+                    <Checkbox value="coachAccount" color="primary" />
                   }
                   label="Check this box if you are signing up for a coach account."
                 />
@@ -149,10 +169,12 @@ export default function SignUp() {
                 </Link>
               </Grid>
             </Grid>
-          </Box>
-        </Box>
+
         <Copyright sx={{ mt: 5 }} />
-      </Container>
+          </Box>
+          </Box>
+        </Grid>
+      </Grid>
     </ThemeProvider>
   );
 }
