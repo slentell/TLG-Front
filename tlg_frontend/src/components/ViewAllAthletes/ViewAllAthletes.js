@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { useAthletes } from "../../Providers/AthleteProvider";
 
 const ViewAllAthletes = () => {
-  const { athletes, setAthletes } = useState([]);
+  const { athletes, setAthletes } = useAthletes([]);
 
   return (
     <div style={{ height: 300, width: "100%" }}>

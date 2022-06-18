@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Box, Grid, Container, Card } from "@mui/material";
+import { Avatar, Box, Grid, Card } from "@mui/material";
 import AthleteMaxList from "../AthleteMaxList/AthleteMaxList";
 import PersonalInfoCard from "../PersonalInfoCard/PersonalInfoCard";
 
