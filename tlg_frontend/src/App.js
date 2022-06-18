@@ -11,11 +11,14 @@ import ImageGallery from './pages/ImageGallery'
 import AddLift from './components/AddLift/AddLift'
 // import AppNav from '../components/AppNav/AppNav'
 import MenuAppBar from './components/AppNav/TopNav';
+import { AppContextProvider } from './Providers/AppContextProvider';
 
 
 function App() {
   return (
     <Provider store={store}>
+      <AppContextProvider>
+   
       <Router> 
         <MenuAppBar />
         <Routes> 
@@ -31,6 +34,7 @@ function App() {
           <Route path='/chat' element={ <ImageGallery /> } /> */}
         </Routes>
       </Router >
+      </AppContextProvider>
     </Provider>
   );
 }
