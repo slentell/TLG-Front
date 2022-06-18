@@ -4,6 +4,7 @@ import ViewAllAthletes from "../components/ViewAllAthletes/ViewAllAthletes";
 import AthleteMaxList from "../components/AthleteMaxList/AthleteMaxList";
 import Posts from "../components/Posts/Posts";
 import { Container } from "@mui/system";
+import liftAPI from '../api/liftApi'
 import AddPost from "../components/AddaPost/AddPost";
 
 const CoachDashboard = () => {
@@ -13,6 +14,15 @@ const CoachDashboard = () => {
     event.preventDefault();
     setValue(newValue);
   };
+
+  useEffect(() => {
+
+    const getTeamLiftHistory = async (team_id) => {
+      const data = await liftAPI.fetchTeamLiftHistory(team_id)
+      console.log(data)
+    }
+    getTeamLiftHistory(1)
+  }, [])
 
   return (
     <div>
