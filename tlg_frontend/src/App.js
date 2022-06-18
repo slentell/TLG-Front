@@ -11,13 +11,14 @@ import ImageGallery from './pages/ImageGallery'
 import AddLiftSession from './pages/AddLiftSession'
 // import AppNav from '../components/AppNav/AppNav'
 import MenuAppBar from './components/AppNav/TopNav';
-import { AthletesProvider } from './Providers/AthleteProvider';
+import { AppContextProvider } from './Providers/AppContextProvider';
 
 
 function App() {
   return (
     <Provider store={store}>
-      <AthletesProvider>
+      <AppContextProvider>
+   
       <Router> 
         <MenuAppBar />
         <Routes> 
@@ -33,7 +34,7 @@ function App() {
           <Route path='/chat' element={ <ImageGallery /> } /> */}
         </Routes>
       </Router >
-      </AthletesProvider>
+      </AppContextProvider>
     </Provider>
   );
 }

@@ -1,9 +1,10 @@
 import React from "react";
-import { Tab, Box, Tabs } from "@mui/material";
+import { Tab, Box, Tabs, Button, Grid, Card, CardHeader } from "@mui/material";
 import ViewAllAthletes from "../components/ViewAllAthletes/ViewAllAthletes";
 import AthleteMaxList from "../components/AthleteMaxList/AthleteMaxList";
 import Posts from "../components/Posts/Posts";
 import { Container } from "@mui/system";
+import AddPost from "../components/AddaPost/AddPost";
 
 const CoachDashboard = () => {
   const [value, setValue] = React.useState("athletes");
@@ -60,6 +61,7 @@ const CoachDashboard = () => {
             <Box>
               <h1>From the Coach</h1>
             </Box>
+           <AddPost />
             <Posts />
           </Container>
         </div>
