@@ -2,7 +2,6 @@ const axios = require('axios').default
 
 const baseURL = 'http://localhost:8000/tlg/'
 
-
 const fetchTeamLiftHistory = async (team) => {
   const url = baseURL + 'lift-history/'
   axios.get(url, {
@@ -13,7 +12,6 @@ const fetchTeamLiftHistory = async (team) => {
   .then(function (response) {
     // handle success
     console.log(response);
-    return response
   })
   .catch(function (error) {
     // handle error
@@ -30,7 +28,6 @@ const fetchAthleteLiftHistory = async (athlete_id) => {
   .then(function (response) {
     // handle success
     console.log(response);
-    return response
   })
   .catch(function (error) {
     // handle error
@@ -40,6 +37,20 @@ const fetchAthleteLiftHistory = async (athlete_id) => {
     // always executed
   });
 }
+
+const fetchNewLiftToHistory = async (new_lift_data) => {
+  const url = baseURL + 'lift-history/'
+  axios.post(url, {
+    new_lift_data
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
 
 
 const exportItems = {
