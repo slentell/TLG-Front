@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tab, Box, Tabs } from "@mui/material";
 import ViewAthleteDetail from "../components/ViewAthleteDetail/ViewAthleteDetail";
 import { Container } from "@mui/system";
+import liftAPI from '../api/liftApi'
+
 
 const AthleteDashboard = () => {
   const [value, setValue] = React.useState("blog");
+
+  useEffect(() => {
+
+    const getAthleteLiftHistory = async (athlete_id) => {
+      const data = await liftAPI.fetchAthleteLiftHistory(athlete_id)
+      console.log(data)
+    }
+    getAthleteLiftHistory(2)
+  }, [])
+
 
   const handleChange = (event, newValue) => {
     event.preventDefault();
@@ -41,3 +53,5 @@ const AthleteDashboard = () => {
 };
 
 export default AthleteDashboard;
+
+

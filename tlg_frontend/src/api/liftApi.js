@@ -1,0 +1,50 @@
+const axios = require('axios').default
+
+const baseURL = 'http://localhost:8000/tlg/'
+
+
+const fetchTeamLiftHistory = async (team) => {
+  const url = baseURL + 'lift-history/'
+  axios.get(url, {
+    params: {
+      team: team
+    }
+  })
+  .then(function (response) {
+    // handle success
+    console.log(response);
+    return response
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+}
+
+const fetchAthleteLiftHistory = async (athlete_id) => {
+  const url = baseURL + 'lift-history/' + athlete_id + '/'
+  axios.get(url)
+  .then(function (response) {
+    // handle success
+    console.log(response);
+    return response
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+}
+
+
+const exportItems = {
+  fetchTeamLiftHistory, 
+  fetchAthleteLiftHistory,
+}
+
+export default exportItems

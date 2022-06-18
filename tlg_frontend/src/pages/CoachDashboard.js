@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tab, Box, Tabs } from "@mui/material";
 import ViewAllAthletes from "../components/ViewAllAthletes/ViewAllAthletes";
 import AthleteMaxList from "../components/AthleteMaxList/AthleteMaxList";
 import Posts from "../components/Posts/Posts";
 import { Container } from "@mui/system";
+import liftAPI from '../api/liftApi'
 
 const CoachDashboard = () => {
   const [value, setValue] = React.useState("athletes");
@@ -12,6 +13,15 @@ const CoachDashboard = () => {
     event.preventDefault();
     setValue(newValue);
   };
+
+  useEffect(() => {
+
+    const getTeamLiftHistory = async (team_id) => {
+      const data = await liftAPI.fetchTeamLiftHistory(team_id)
+      console.log(data)
+    }
+    getTeamLiftHistory(1)
+  }, [])
 
   return (
     <div>
