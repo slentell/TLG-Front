@@ -6,12 +6,12 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
   Grid,
   Box,
   Typography,
   Container,
 } from "@mui/material/";
+import { Link } from "react-router-dom";
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
@@ -26,7 +26,11 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
+      <Link
+        color="inherit"
+        to="/"
+        style={{ textDecoration: "none", color: "grey" }}
+      >
         Through the Lifting Glass TLG
       </Link>{" "}
       {new Date().getFullYear()}
@@ -49,7 +53,11 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        style={{ backgroundColor: "white" }}
+        component="main"
+        maxWidth="xs"
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -144,7 +152,11 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link
+                  to="/signin"
+                  variant="body2"
+                  style={{ textDecoration: "none", color: "blue" }}
+                >
                   Already have an account? Sign in
                 </Link>
               </Grid>
