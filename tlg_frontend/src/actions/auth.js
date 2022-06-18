@@ -23,6 +23,7 @@ axios.defaults.withCredentials = true;
 
 export const load_user = () => async dispatch => {
   if (localStorage.getItem('access')) {
+    console.log(localStorage.getItem('access'))
       const config = {
           headers: {
               'Content-Type': 'application/json',
@@ -32,6 +33,7 @@ export const load_user = () => async dispatch => {
       }; 
 
       try {
+          console.log('LOAD USER:')
           const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
   
           dispatch({
@@ -39,6 +41,7 @@ export const load_user = () => async dispatch => {
               payload: res.data
           });
       } catch (err) {
+          console.log(err)
           dispatch({
               type: USER_LOADED_FAIL
           });
@@ -131,7 +134,7 @@ export const login = (email, password) => async dispatch => {
   const body = JSON.stringify({ email, password });
   try {
     const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/jwt/create/`, body, config);
-
+    console.log(`DATA: ${res.data}`)
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data

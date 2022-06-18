@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState } from "react";
+import { connect } from 'react-redux';
 import {
   Avatar,
   Button,
@@ -12,7 +13,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-
+import { login } from "../actions/auth";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -36,14 +37,19 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+const SignIn = ({ login }) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const { email, password } = formData;
+
+  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value })
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    login(email, password);
   };
 
   return (
@@ -98,6 +104,7 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={e => onChange(e)}
               />
               <TextField
                 margin="normal"
@@ -108,6 +115,7 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={e => onChange(e)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -141,3 +149,9 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { login })(SignIn);
