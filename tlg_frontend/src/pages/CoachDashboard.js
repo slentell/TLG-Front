@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tab, Box, Tabs, Button, Grid, Card, CardHeader } from "@mui/material";
 import ViewAllAthletes from "../components/ViewAllAthletes/ViewAllAthletes";
 import AthleteMaxList from "../components/AthleteMaxList/AthleteMaxList";
