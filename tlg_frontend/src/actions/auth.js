@@ -54,8 +54,10 @@ export const load_user = () => async dispatch => {
 };
 
 export const googleAuthenticate = (state, code) => async dispatch => {
-  console.log("Google Auth Called")
+  console.log("--- GOOGLE AUTH CHECK CALLED ---")
   if (state && code && !localStorage.getItem('access')) {
+    console.log("--- GA IF STATE & CODE ---")
+    console.log(`State: ${state} \nCode: ${code}`)
       const config = {
           headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -81,6 +83,7 @@ export const googleAuthenticate = (state, code) => async dispatch => {
 
           dispatch(load_user());
       } catch (err) {
+        console.log(err)
           dispatch({
               type: GOOGLE_AUTH_FAIL
           });

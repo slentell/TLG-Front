@@ -16,6 +16,8 @@ import {
 import { login } from "../actions/auth";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -37,7 +39,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const SignIn = ({ login }) => {
+const SignIn = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -51,6 +53,21 @@ const SignIn = ({ login }) => {
     event.preventDefault();
     login(email, password);
   };
+
+  const continueWithGoogle = async () => {
+    try {
+      console.log("--- CONTINUE WITH GOOGLE ---")
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=http://localhost:3000`)
+
+      window.location.replace(res.data.authorization_url);
+    } catch (err) {
+
+    }
+  };
+
+  if (isAuthenticated) {
+    return <Navigate to='/' />
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -143,6 +160,7 @@ const SignIn = ({ login }) => {
               </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>
+            <button className="btn btn-danger mt-3" onClick={continueWithGoogle}>Continue With Google</button>
           </Box>
         </Grid>
       </Grid>
