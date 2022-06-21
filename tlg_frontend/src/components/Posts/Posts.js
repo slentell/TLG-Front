@@ -1,56 +1,84 @@
 // import { Container, Box } from '@mui/system
-import { React } from "react";
+import { React, useEffect } from "react";
+import { red } from '@mui/material/colors';
+import { usePosts } from "../../Providers/PostProvider";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import {
   Card,
   CardActions,
   CardContent,
-  Button,
   Typography,
   Box,
+  CardHeader,
+  IconButton,
+  Avatar,
+  CardMedia
 } from "@mui/material";
 import { Container } from "@mui/system";
 
+import AddPost from "../AddaPost/AddPost";
+
 const Posts = () => {
-  // const [postList, setPostList] = useState();
+  const { posts, setPosts, handlePostDelete,getAllPosts } = usePosts();
+  useEffect(() => {
+    getAllPosts();
+  }, [getAllPosts]);
 
-  const postList = [
-    {
-      id: 1,
-      title: "Title 1",
-      post: "Stuff about the things.",
-    },
-    {
-      id: 2,
-      title: "Title ",
-      post: "Things about the stuff.",
-    },
-    {
-      id: 3,
-      title: "Title 3",
-      post: "All of the swolio.",
-    },
-  ];
-
-  const card = (item) => (
+  const PostCard = ({item}) => (
     <div>
+         <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            Coach
+          </Avatar>
+        }
+        
+        title={item.title}
+        subheader="date"
+      />
+      
+      {item.image && 
+      <CardMedia
+        component="img"
+        height="194"
+        image="{item.image}"
+        alt="post image"
+      />
+    }
       <CardContent>
-        <Typography variant="h5" component="div">
-          {item}
+        <Typography variant="body2" color="text.secondary">
+          {item.content}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Stuff</Button>
+      <CardActions disableSpacing>
+        <IconButton aria-label="delete post" onClick={(e) =>handleDelete(e, item.id)}>
+          <DeleteForeverIcon />
+        </IconButton>
+        
       </CardActions>
+      
+       
     </div>
   );
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
+    try {
+      await handlePostDelete(id);
+    } catch (e) {
+      console.error('Error deleting post', e)
+    }
+    let newPosts = posts.filter((post) => post.id !== id);
+    setPosts(newPosts)
+  }
 
   return (
     <div>
-      {postList.map((item) => (
-        <Container>
-          <Box sx={{ minWidth: 275 }}>
-            <Card variant="outlined">{card(item.post)}</Card>
+      <AddPost />
+      {posts.map((item, index) => (
+        <Container key={index} sx={{display:'flex', justifyContent:'space-around',mb: '25px' }}>
+          <Box sx={{ minWidth: 550}}>
+            <Card variant="outlined" sx={{display:'flex'}}><PostCard item={item} /></Card>
           </Box>
         </Container>
       ))}
