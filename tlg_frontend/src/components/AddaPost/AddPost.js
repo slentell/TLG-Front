@@ -1,44 +1,40 @@
-import React, { useState } from "react";
-
-import {
-  CardContent,
-  CardActions,
-  CardHeader,
-  TextField,
-  Container,
-  IconButton,
-  Card,
-  Button,
-  Modal,
-  Grid,
-} from "@mui/material";
 import AddPhotoAlternateTwoToneIcon from "@mui/icons-material/AddPhotoAlternateTwoTone";
 import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
 import CloseIcon from "@mui/icons-material/Close";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Container,
+  Grid,
+  IconButton,
+  Modal,
+  TextField,
+} from "@mui/material";
 import Picker from "emoji-picker-react";
-import axios from "axios";
+import { useState } from "react";
+
+import { usePosts } from "../../Providers/PostProvider";
 
 const AddPost = () => {
-  const [open, setOpen] = useState(false);
+  const {
+    handleOpen,
+    handleClose,
+    handlePostSubmit,
+    open,
+  } = usePosts();
+
   const [showPicker, setShowPicker] = useState(false);
-  const [inputStr, setInputStr] = useState("");
   const [imgUpload, setImgUpload] = useState(false);
+  const [inputStr, setInputStr] = useState("");
   const [data, setData] = useState({
- 
     title: "",
     content: inputStr,
-    image:"",
-
-  })
-
-  const handleOpen = (e) => {
-    e.preventDefault();
-    setOpen(true);
-  };
-  const handleClose = (e) => {
-    e.preventDefault();
-    setOpen(false);
-  };
+    image: "",
+  });
 
   const onEmojiClick = (e, emojiObject, name) => {
     setInputStr((prevInput) => prevInput + emojiObject.emoji);
@@ -50,29 +46,20 @@ const AddPost = () => {
     const value = e.target.value;
     setData({
       ...data,
-      [e.target.name]: value
+      [e.target.name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Got in handle Submit')
     const postData = {
       title: data.title,
       content: inputStr,
-      image: data.image
+      image: data.image,
     };
-    axios.post('https://throughtheliftingglass.herokuapp.com/tlg/posts/', postData, {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("access")}` 
-      }
-    })
-    .then((response) => {
-      console.log(response)
-    })
-  }
 
+    handlePostSubmit(postData);
+  }
 
   return (
     <div>
@@ -130,15 +117,22 @@ const AddPost = () => {
               />
             </Container>
             <Container>
-              <IconButton
-                onClick={() => setImgUpload((val) => !val)}
-              >
+              <IconButton onClick={() => setImgUpload((val) => !val)}>
                 <AddPhotoAlternateTwoToneIcon />
               </IconButton>
               <IconButton onClick={() => setShowPicker((val) => !val)}>
                 <AddReactionTwoToneIcon />
               </IconButton>
-              <Container>{imgUpload && <input type="file" name="image" value={data.image} onChange={handleChange}/>}</Container>
+              <Container>
+                {imgUpload && (
+                  <input
+                    type="file"
+                    name="image"
+                    value={data.image}
+                    onChange={handleChange}
+                  />
+                )}
+              </Container>
               <Modal
                 sx={{
                   display: "flex",
@@ -150,17 +144,17 @@ const AddPost = () => {
                 open={showPicker}
                 onClose={() => setShowPicker((val) => !val)}
               >
-                {showPicker && (
+                {
+                  <Box sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}>
                   <Picker
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
                     onEmojiClick={onEmojiClick}
                     pickerStyle={{ width: "14%" }}
-                  />
-                )}
+                  /></Box>
+                }
               </Modal>
             </Container>
           </CardContent>

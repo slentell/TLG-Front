@@ -12,6 +12,5 @@ export const combineComponents = (...components) => {
       };
     },
     ({ children }) => <>{children}</>,
-    console.log('combineComponents', components)
   );
 };

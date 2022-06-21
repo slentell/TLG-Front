@@ -10,9 +10,9 @@ export const AthletesProvider = ({ children }) => {
   useEffect(() => {
     const getAllAthletes = async () => {
       try {
-        const response = await axios.get('https://throughtheliftingglass.herokuapp.com/tlg/athlete/', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/tlg/athlete/`, {
           headers: {
-            authorization:`Bearer ${localStorage.getItem('access')}`,
+            authorization:`JWT ${localStorage.getItem('access')}`,
           },
         });
    

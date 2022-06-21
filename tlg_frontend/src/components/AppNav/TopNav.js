@@ -12,6 +12,8 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import EmojiPeopleTwoToneIcon from '@mui/icons-material/EmojiPeopleTwoTone';
+import SportsTwoToneIcon from '@mui/icons-material/SportsTwoTone';
 import ChatIcon from "@mui/icons-material/Chat";
 import {
   Drawer,
@@ -26,15 +28,18 @@ import {
   MenuItem,
   Menu,
 } from "@mui/material";
-import { HomeOutlined, InboxOutlined } from "@mui/icons-material";
+import { HomeOutlined, InboxOutlined, Satellite } from "@mui/icons-material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../actions/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const data = [
   { name: "Home", icon: <HomeOutlined />, path: "/" },
   { name: "Add a lift sesh", icon: <AddIcon />, path: "/add-lift-session" },
   { name: "Track your progress", icon: <AssessmentIcon />, path: "/" },
-  { name: "View Posts", icon: <InboxOutlined />, path: "/" },
+  { name: "View Posts", icon: <InboxOutlined />, path: "/posts" },
   { name: "Bell Ringers", icon: <NotificationsActiveIcon />, path: "/" },
   { name: "Image Gallery", icon: <PhotoLibraryIcon />, path: "/images" },
   { name: "Calendar", icon: <CalendarMonthIcon />, path: "/" },
@@ -46,17 +51,32 @@ export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = useState(false);
+  const [showCoachDash, setShowCoachDash] = useState(false);
+  const [showAthleteDash, setShowAthleteDash] = useState(false);
+  const {user: currentUser } = useSelector((state) => state.auth) 
 
   // const handleChange = (event) => {
   //   setAuth(event.target.checked);
   // };
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  useEffect(() => {
+    if (currentUser) {
+      setShowCoachDash(currentUser.account_type === 2)
+      setShowAthleteDash(currentUser.account_type === 1)
+    }
+  }, [currentUser])
+
+  const logOut = () => {
+    dispatch(logout())
+    navigate('/')
   };
 
   const getList = () => (
@@ -67,8 +87,24 @@ export default function MenuAppBar() {
           <ListItemText primary={item.name} />
         </ListItem>
       ))}
+      {showCoachDash && (
+      <ListItem component ={Link} to={'/coach-dashboard'}>
+        <ListItemIcon><SportsTwoToneIcon /></ListItemIcon>
+        <ListItemText primary='Coach Dashboard' />
+      </ListItem>
+      )}
+      {showAthleteDash && (
+        <ListItem component ={Link} to={'/athlete-dashboard'}>
+        <ListItemIcon><EmojiPeopleTwoToneIcon /></ListItemIcon>
+        <ListItemText primary='Athlete Dashboard' />
+      </ListItem>
+      )}
     </div>
   );
+
+
+
+  
 
   return (
     <div>
@@ -116,7 +152,7 @@ export default function MenuAppBar() {
                 >
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={handleClose}>My account</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={logOut}>Logout</MenuItem>
                 </Menu>
               </div>
             )}
