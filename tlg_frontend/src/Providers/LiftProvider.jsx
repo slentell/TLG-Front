@@ -20,13 +20,14 @@ export const LiftProvider = ({ children }) => {
       payload.url = endpoint
         ? `${process.env.REACT_APP_API_URL}/tlg/lift-history/${endpoint}`
         : `${process.env.REACT_APP_API_URL}/tlg/lift-history/`;
+      console.log('payload url ', payload.url);
       if (dataPayload) {
         payload.data = dataPayload;
       }
       const { data } = await axios(payload);
       return data;
     } catch (error) {
-      console.error(`Error ${method} call for Lifts`, error.message);
+        console.error(`Error ${method} call for Lifts`, error.message);
     }
   };
 
@@ -35,7 +36,6 @@ export const LiftProvider = ({ children }) => {
     try {
       const data = await liftCalls("post", "", liftData);
       console.log("inside handleLift Submit in lift provider ", data);
-      //   await getAllPosts();
     } catch (e) {
       console.log("There's an error", e);
     }

@@ -16,13 +16,15 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useLifts } from "../../Providers/LiftProvider";
 import { useSelector } from "react-redux";
 // date_of_lift: new Date()
+
 const Form = () => {
-  const { user: currentUser } = useSelector((state) => state.auth);
+//   const { user: currentUser } = useSelector((state) => state.auth);
+//   console.log('current user is ', currentUser)
   const [formValues, setFormValues] = useState({
     lift: "power_clean",
     weight: 100,
     date_of_lift: "2022-06-21",
-    athlete: currentUser.id,
+    // athlete: currentUser.id,
   });
   // const [date, setDate] = React.useState(new Date());
 
@@ -38,18 +40,10 @@ const Form = () => {
       [name]: value,
     });
   };
-  const handleSubmit = (event) => {
-    console.log("submit event ", event);
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formValues);
-    // const liftData = {
-    //     ...formValues
-    // }
     handleLiftSubmit(formValues);
   };
-
-  // console.log('form values ', formValues)
-  // console.log('form values lift ', formValues.lift)
 
   return (
     <Box
