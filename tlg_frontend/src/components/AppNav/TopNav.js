@@ -123,6 +123,7 @@ export default function MenuAppBar() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               <FitnessCenterIcon />
             </Typography>
+            { currentUser && <Typography>Hello, {currentUser.first_name}</Typography> }
             {auth && (
               <div>
                 <IconButton

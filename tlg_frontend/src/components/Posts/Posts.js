@@ -35,9 +35,8 @@ const Posts = () => {
         }
         
         title={item.title}
-        subheader="date"
-      />
-      
+        subheader={item.date}
+        />
       {item.image && 
       <CardMedia
         component="img"
@@ -58,7 +57,6 @@ const Posts = () => {
         
       </CardActions>
       
-       
     </div>
   );
   const handleDelete = async (e, id) => {
