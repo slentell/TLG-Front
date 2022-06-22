@@ -4,12 +4,15 @@ import { Typography, FormLabel, Box, FormControl, Select, MenuItem, TextField, B
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-
-
+import { useLifts } from '../../Providers/LiftProvider'
+import { useSelector } from "react-redux";
+// date_of_lift: new Date()
 const Form = () => {
-    const [formValues, setFormValues] = useState({lift: "power_clean", weight: "100"});
-    const [date, setDate] = React.useState(new Date());
+    const {user: currentUser } = useSelector((state) => state.auth) 
+    const [formValues, setFormValues] = useState({lift: "power_clean", weight: 100, date_of_lift: '2022-06-21', athlete: currentUser.id});
+    // const [date, setDate] = React.useState(new Date());
+
+    const {handleLiftSubmit} = useLifts()
 
     const handleInputChange = (e) => {
         console.log('e.target ', e.target)
@@ -25,10 +28,14 @@ const Form = () => {
         console.log('submit event ', event)
         event.preventDefault();
         console.log(formValues);
+        // const liftData = {
+        //     ...formValues
+        // }
+        handleLiftSubmit(formValues)
     };
 
-    console.log('form values ', formValues)
-    console.log('form values lift ', formValues.lift)
+    // console.log('form values ', formValues)
+    // console.log('form values lift ', formValues.lift)
 
     return (
         <Box 
@@ -81,10 +88,12 @@ const Form = () => {
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DatePicker
                                     label="Date"
-                                    value={date}
-                                    onChange={(newDate) => {
-                                        setDate(newDate);
-                                    }}
+                                    // value={date}
+                                    value={formValues.date}
+                                    // onChange={(newDate) => {
+                                    //    setDate(newDate);
+                                    // }}
+                                    onChange={handleInputChange}
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                             </LocalizationProvider>
@@ -98,7 +107,6 @@ const Form = () => {
                 </form>
             </Grid>
         </Box>
-        // </Container>
         );
     };
     export default Form;
