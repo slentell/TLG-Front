@@ -56,6 +56,7 @@ const fetchNewLiftToHistory = async (new_lift_data) => {
 const exportItems = {
   fetchTeamLiftHistory, 
   fetchAthleteLiftHistory,
+  fetchNewLiftToHistory,
 }
 
 export default exportItems
