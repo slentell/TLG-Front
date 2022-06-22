@@ -32,7 +32,7 @@ function App() {
               <Route path="/add-lift-session" element={<AddLift />} />
               <Route path="/posts" element={<Posts />} />
               <Route path="/activate" element={<Activate />} />
-              <Route path='/new-team' element={<NewTeam />} />
+              <Route path="/new-team" element={<NewTeam />} />
               {/* <Route path='/bell-ringers' element={ <ImageGallery /> } />
             <Route path='/calendar' element={ <ImageGallery /> } />
             <Route path='/chat' element={ <ImageGallery /> } /> */}

@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { activate, signup } from "../actions/auth";
+import { signup } from "../actions/auth";
 import { connect } from "react-redux";
 
 function Copyright(props) {
