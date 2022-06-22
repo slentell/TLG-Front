@@ -152,7 +152,9 @@ export default function MenuAppBar() {
                   onClose={handleClose}
                 >
                   {showCoachDash &&
-                  <MenuItem >Create Team</MenuItem>}
+                  <Link to='new-team' style={{ textDecoration: 'none', display: 'block'}}>
+                  <MenuItem >Create Team</MenuItem>
+                  </Link>}
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={handleClose}>My account</MenuItem>
                   <MenuItem onClick={logOut}>Logout</MenuItem>

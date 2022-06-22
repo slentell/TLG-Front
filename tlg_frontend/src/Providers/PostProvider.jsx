@@ -40,7 +40,6 @@ export const PostProvider = ({ children }) => {
   const getAllPosts = async () => {
     try {
       const data = await postCalls("get");
-      console.log('data ', data)
       if (data.length !== posts.length) {
         setPosts(data);
       }
