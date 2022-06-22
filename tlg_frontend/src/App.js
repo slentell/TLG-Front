@@ -9,6 +9,7 @@ import SignUp from './pages/Signup'
 import SignIn from './pages/SignIn'
 import ImageGallery from './pages/ImageGallery'
 import AddLift from './components/AddLift/AddLift'
+import Activate from './pages/Activate';
 // import AppNav from '../components/AppNav/AppNav'
 import { AppContextProvider } from './Providers/AppContextProvider';
 import Layout from './hocs/Layout';
@@ -31,6 +32,7 @@ function App() {
             <Route path='/images' element={ <ImageGallery /> } />
             <Route path='/add-lift-session' element={ <AddLift /> } />
             <Route path='/posts' element={ <Posts /> } />
+            <Route path='/activate' element= {<Activate /> } />
             {/* <Route path='/bell-ringers' element={ <ImageGallery /> } />
             <Route path='/calendar' element={ <ImageGallery /> } />
             <Route path='/chat' element={ <ImageGallery /> } /> */}
