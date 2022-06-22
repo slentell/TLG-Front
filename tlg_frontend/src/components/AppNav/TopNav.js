@@ -28,7 +28,7 @@ import {
   MenuItem,
   Menu,
 } from "@mui/material";
-import { HomeOutlined, InboxOutlined, Satellite } from "@mui/icons-material";
+import { HomeOutlined, InboxOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/auth";
