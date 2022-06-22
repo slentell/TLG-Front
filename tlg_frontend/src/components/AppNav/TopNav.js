@@ -150,9 +150,12 @@ export default function MenuAppBar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
+                  {showCoachDash &&
+                  <MenuItem >Create Team</MenuItem>}
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={handleClose}>My account</MenuItem>
                   <MenuItem onClick={logOut}>Logout</MenuItem>
+
                 </Menu>
               </div>
             )}
