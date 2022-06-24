@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const ImageGallery = () => {
   // TO DO :
@@ -47,6 +48,23 @@ const ImageGallery = () => {
     }
   }, [selectedImage]);
 
+  const uploadImage = async () => {
+
+    const config = {
+      headers: {
+        "Authorization": `JWT ${localStorage.getItem("access")}`,
+        "Content-Type": "multipart/form-data"
+      },
+    };
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/tlg/image-gallery/`, {'image': selectedImage}, config)
+
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // upload an image
   const fileInput = () => {
     return (
@@ -71,10 +89,15 @@ const ImageGallery = () => {
     return (
       <div>
         {imageUrl && selectedImage && (
-          <Box mt={2} textAlign="center">
-            <div>Image Preview:</div>
-            <img src={imageUrl} alt={selectedImage.name} height="100px" />
-          </Box>
+          <div>
+            <Box mt={2} textAlign="center">
+              <div>Image Preview:</div>
+              <img src={imageUrl} alt={selectedImage.name} height="100px" />
+            </Box>
+            <Button variant="contained" color="primary" component="span" onClick={uploadImage}>
+              CLICK THIS TO UPLOAD THE PREVIEW
+            </Button>
+          </div>
         )}
       </div>
     );
