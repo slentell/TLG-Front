@@ -23,7 +23,7 @@ axios.defaults.withCredentials = true;
 
 export const load_user = () => async (dispatch) => {
   if (localStorage.getItem("access")) {
-    console.log(localStorage.getItem("access"));
+
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export const load_user = () => async (dispatch) => {
     };
 
     try {
-      console.log("LOAD USER:");
+
       const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/auth/users/me/`,
         config

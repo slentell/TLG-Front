@@ -10,11 +10,13 @@ import SignIn from "./pages/SignIn";
 import ImageGallery from "./pages/ImageGallery";
 import AddLift from "./components/AddLift/AddLift";
 import Activate from "./pages/Activate";
-import { NewTeam } from "./pages/NewTeam";
+import NewTeam from "./components/NewTeam/NewTeam";
+
 // import AppNav from '../components/AppNav/AppNav'
 import { AppContextProvider } from "./Providers/AppContextProvider";
 import Layout from "./hocs/Layout";
 import Posts from "./components/Posts/Posts";
+import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
               <Route path="/posts" element={<Posts />} />
               <Route path="/activate" element={<Activate />} />
               <Route path="/new-team" element={<NewTeam />} />
+              <Route path="/update-profile" element={<UpdateProfile />} />
               {/* <Route path='/bell-ringers' element={ <ImageGallery /> } />
             <Route path='/calendar' element={ <ImageGallery /> } />
             <Route path='/chat' element={ <ImageGallery /> } /> */}

@@ -15,13 +15,14 @@ const ViewAllAthletes = () => {
           { field: "weight_class", headerName: "Weight Class", width: 250 },
         ]}
         rows={[
-          {
+        {
             id: 1,
             first_name: "Swole ",
             last_name: "Pikachu",
             grade: "9",
             weight_class: "129",
-          },
+          },       
+          
           {
             id: 2,
             first_name: "UltraSwole",

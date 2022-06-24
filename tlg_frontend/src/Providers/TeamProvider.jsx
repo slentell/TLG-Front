@@ -1,12 +1,12 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 import axios from "axios";
 const TeamContext = createContext({});
 
-export const useTeams = () => useContext(TeamContext);
+export const useTeam = () => useContext(TeamContext);
 
 export const TeamProvider = ({ children }) => {
   // state for the Team and axios calls
-  const [teams, setTeams] = useState([]);
+  const [team, setTeam] = useState([]);
 
   const teamCalls = async (method, endpoint = "", dataPayload = null) => {
     try {
@@ -28,16 +28,7 @@ export const TeamProvider = ({ children }) => {
       console.error(`Error ${method} call for Teams`, error.message);
     }
   };
-  const getAllTeams = async () => {
-    try {
-      const data = await teamCalls("get");
-      if (data.length !== teams.length) {
-        setTeams(data);
-      }
-    } catch (error) {
-      console.error("Error fetching teams", error);
-    }
-  }
+  
 
   const handleTeamSubmit = async (teamData) => {
     try {
@@ -47,16 +38,30 @@ export const TeamProvider = ({ children }) => {
       console.log("There's an error", e);
     }
   };
+  useEffect(() => {
+    const getTeam = async () => {
+      try {
+        const data = await teamCalls("get");
+        if (data.length !== team.length) {
+          setTeam(data);
+        }
+      } catch (error) {
+        console.error("Error fetching team", error);
+      }
+    };
+    getTeam();
+  }, [team]);
 
   return (
-    <TeamContext.Provider 
-      value={{ 
-        teams, 
-        setTeams, 
+    <TeamContext.Provider
+      value={{
+        team,
+        setTeam,
         handleTeamSubmit,
-        }}
-      >
-        {children}
+        
+      }}
+    >
+      {children}
     </TeamContext.Provider>
   );
 };

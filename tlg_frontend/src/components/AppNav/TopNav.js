@@ -12,8 +12,8 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-import EmojiPeopleTwoToneIcon from '@mui/icons-material/EmojiPeopleTwoTone';
-import SportsTwoToneIcon from '@mui/icons-material/SportsTwoTone';
+import EmojiPeopleTwoToneIcon from "@mui/icons-material/EmojiPeopleTwoTone";
+import SportsTwoToneIcon from "@mui/icons-material/SportsTwoTone";
 import ChatIcon from "@mui/icons-material/Chat";
 import {
   Drawer,
@@ -32,8 +32,10 @@ import { HomeOutlined, InboxOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import { useTeam } from "../../Providers/TeamProvider";
+import { useUserType } from "../../Providers/UserTypeProvider";
 
 const data = [
   { name: "Home", icon: <HomeOutlined />, path: "/" },
@@ -51,9 +53,11 @@ export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = useState(false);
-  const [showCoachDash, setShowCoachDash] = useState(false);
-  const [showAthleteDash, setShowAthleteDash] = useState(false);
-  const {user: currentUser } = useSelector((state) => state.auth) 
+
+ 
+  const { team, setTeam } = useTeam();
+  const { coachUser, athleteUser, currentUser } = useUserType()
+
 
   // const handleChange = (event) => {
   //   setAuth(event.target.checked);
@@ -67,16 +71,13 @@ export default function MenuAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  useEffect(() => {
-    if (currentUser) {
-      setShowCoachDash(currentUser.account_type === 2)
-      setShowAthleteDash(currentUser.account_type === 1)
-    }
-  }, [currentUser])
+
 
   const logOut = () => {
-    dispatch(logout())
-    navigate('/')
+    dispatch(logout());
+    setTeam([]);
+
+    navigate("/");
   };
 
   const getList = () => (
@@ -87,29 +88,33 @@ export default function MenuAppBar() {
           <ListItemText primary={item.name} />
         </ListItem>
       ))}
-      {showCoachDash && (
-      <ListItem component ={Link} to={'/coach-dashboard'}>
-        <ListItemIcon><SportsTwoToneIcon /></ListItemIcon>
-        <ListItemText primary='Coach Dashboard' />
-      </ListItem>
+      {coachUser && (
+        <ListItem component={Link} to={"/coach-dashboard"}>
+          <ListItemIcon>
+            <SportsTwoToneIcon />
+          </ListItemIcon>
+          <ListItemText primary="Coach Dashboard" />
+        </ListItem>
       )}
-      {showAthleteDash && (
-        <ListItem component ={Link} to={'/athlete-dashboard'}>
-        <ListItemIcon><EmojiPeopleTwoToneIcon /></ListItemIcon>
-        <ListItemText primary='Athlete Dashboard' />
-      </ListItem>
+      {athleteUser && (
+        <ListItem component={Link} to={"/athlete-dashboard"}>
+          <ListItemIcon>
+            <EmojiPeopleTwoToneIcon />
+          </ListItemIcon>
+          <ListItemText primary="Athlete Dashboard" />
+        </ListItem>
       )}
     </div>
   );
 
-
-
-  
-
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{bgcolor:'2a2f31'}}>
+        <AppBar
+          position="static"
+        
+          // sx={{bgcolor: `${team[0].primary_color}`, color: `${team[0].secondary_color}`}}
+        >
           <Toolbar>
             <IconButton
               size="large"
@@ -120,10 +125,20 @@ export default function MenuAppBar() {
             >
               <MenuIcon onClick={() => setOpen(true)} />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <FitnessCenterIcon />
-            </Typography>
-            { currentUser && <Typography>Hello, {currentUser.first_name}</Typography> }
+            {team.length === 0 ? (
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <FitnessCenterIcon />
+                Weightlifting Team
+              </Typography>
+            ) : (
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <FitnessCenterIcon />
+                {team[0].team_name} {team[0].gender} Weightlifting Team
+              </Typography>
+            )}
+            {currentUser && (
+              <Typography>Hello, {currentUser.first_name}</Typography>
+            )}
             {auth && (
               <div>
                 <IconButton
@@ -151,14 +166,24 @@ export default function MenuAppBar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {showCoachDash &&
-                  <Link to='new-team' style={{ textDecoration: 'none', display: 'block'}}>
-                  <MenuItem >Create Team</MenuItem>
-                  </Link>}
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  {coachUser && (
+                    <Link
+                      to="new-team"
+                      style={{ textDecoration: "none", display: "block" }}
+                    >
+                      <MenuItem>Create Team</MenuItem>
+                    </Link>
+                  )}
+                  {athleteUser && (
+                     <Link
+                     to="update-profile"
+                     style={{ textDecoration: "none", display: "block" }}
+                   > <MenuItem>Update Profile</MenuItem>
+                   </Link>
+                  )}
+                 
                   <MenuItem onClick={handleClose}>My account</MenuItem>
                   <MenuItem onClick={logOut}>Logout</MenuItem>
-
                 </Menu>
               </div>
             )}
