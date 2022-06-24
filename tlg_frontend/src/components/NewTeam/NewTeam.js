@@ -13,7 +13,7 @@ import {
   Container,
 } from "@mui/material";
 
-import { useTeams } from "../Providers/TeamProvider";
+import { useTeam } from "../../Providers/TeamProvider";
 
 const defaultValues = {
   "team_name": "",
@@ -22,8 +22,8 @@ const defaultValues = {
   "gender": "",
 };
 
-export const NewTeam = () => {
-  const { handleTeamSubmit } = useTeams();
+const NewTeam = () => {
+  const { handleTeamSubmit } = useTeam();
 
   const [formValues, setFormValues] = useState(defaultValues);
   const handleInputChange = (e) => {
@@ -113,13 +113,13 @@ export const NewTeam = () => {
                     key="male"
                     value="M"
                     control={<Radio size="small" />}
-                    label="Boy's"
+                    label="Boys"
                   />
                   <FormControlLabel
                     key="female"
                     value="F"
                     control={<Radio size="small" />}
-                    label="Girl's"
+                    label="Girls"
                   />
                 </RadioGroup>
               </FormControl>
@@ -139,3 +139,5 @@ export const NewTeam = () => {
     </Box>
   );
 };
+
+export default NewTeam
