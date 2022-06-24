@@ -9,32 +9,49 @@ import {
   TextField,
   Button,
   Grid,
+  Alert,
 } from "@mui/material";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { useLifts } from "../../Providers/LiftProvider";
-import moment from 'moment'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+// import moment from 'moment'
 
+const dateFormatter = (date) => {
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = date.getFullYear();
+    return `${yyyy}-${mm}-${dd}`
+}
 const Form = () => {
-    
+    // moment(new Date()).format('YYYY-MM-DD')
     // const [date, setDate] = React.useState(new Date());
+    const [submittedStatus, setSubmittedStatus] = React.useState(null)
+    const [alertOpen, setAlertOpen] = React.useState(false)
     const [formValues, setFormValues] = useState({
         lift: "power_clean",
         weight: 100,
-        date_of_lift: new Date(),
+        date_of_lift: dateFormatter(new Date()),
     });
 
     const { handleLiftSubmit } = useLifts();
 
     const handleInputChange = (e) => {
         // if input is date, there is no e.target
+        console.log('e is ', e)
         if (!e.target) {
             const date = e
+            var dd = String(date.getDate()).padStart(2, '0');
+            var mm = String(date.getMonth() + 1).padStart(2, '0'); 
+            var yyyy = date.getFullYear();
+            console.log('the date inside handleInputChange ', `${yyyy}-${mm}-${dd}`)
             setFormValues({
                 ...formValues,
-                ['date_of_lift']: moment.utc(date).format('YYYY-MM-DD'),
+                ['date_of_lift']: `${yyyy}-${mm}-${dd}`,
             }); 
+            console.log('date  inside if ', formValues.date_of_lift)
         }
         // if input is not date, need to access target property
         else {
@@ -44,11 +61,20 @@ const Form = () => {
                 [name]: value,
             });
         }
+        console.log('after conditionals ', formValues.date_of_lift);
+    }
+    const displaySubmitMessage = () => {
+        console.log(typeof submittedStatus, submittedStatus)
+        return (
+            <Alert severity={submittedStatus} onClose={() => {setAlertOpen(false)}}> {submittedStatus == 'success' ? 'Your lift was saved !' : 'Your lift was not saved. Please try again'}</Alert> 
+        )
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        handleLiftSubmit(formValues);
+        const isSubmitted = await handleLiftSubmit(formValues);
+        setAlertOpen(true)
+        setSubmittedStatus(isSubmitted);
     };
 
     return (
@@ -99,15 +125,16 @@ const Form = () => {
             </Grid>
             <Grid item sx={{ m: 1 }}>
             <FormControl name='date_of_lift'>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
+                {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
+                <DatePicker
                     name="date_of_lift"
                     label="Date"
+                    // selected={formValues.date_of_lift}
                     value={formValues.date_of_lift}
                     onChange={handleInputChange}
                     renderInput={(params) => <TextField {...params} />}
                 />
-                </LocalizationProvider>
+                {/* </LocalizationProvider> */}
             </FormControl>
             </Grid>
             <Grid item sx={{ mb: 2 }} align="center">
@@ -116,6 +143,7 @@ const Form = () => {
             </Button>
             </Grid>
         </form>
+        { alertOpen && displaySubmitMessage()}
         </Grid>
     </Box>
     );

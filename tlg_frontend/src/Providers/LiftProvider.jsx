@@ -28,17 +28,25 @@ export const LiftProvider = ({ children }) => {
       return data;
     } catch (error) {
         console.error(`Error ${method} call for Lifts`, error.message);
+        return error;
     }
   };
 
   const handleLiftSubmit = async (liftData) => {
     console.log("initial lift data ", liftData);
+    let submitted = 'success'
     try {
       const data = await liftCalls("post", "", liftData);
       console.log("inside handleLift Submit in lift provider ", data);
-    } catch (e) {
-      console.log("There's an error", e);
+      if (!data.status) {
+        submitted = 'error'
+      }
+    } catch (error) {
+      console.log("There's an error", error);
+      submitted = 'error'
     }
+    console.log('submitted inside handle lift submit ', submitted);
+    return submitted;
   };
 
   return (
