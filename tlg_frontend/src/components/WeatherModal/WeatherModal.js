@@ -34,6 +34,7 @@ const toTitleCase = (str) => {
 const WeatherModal = () => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState();
+  const [weatherIcon, setWeatherIcon] = useState();
   const [location, setLocation] = useState("");
   const WeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=28fe2489cee1c29d725c33f09ebaa172`;
   const handleOpen = () => setOpen(true);
@@ -53,6 +54,11 @@ const WeatherModal = () => {
 
       handleOpen();
     }
+  };
+
+  const getWeatherIcon = async (iconID) => {
+    const url = `http://openweathermap.org/img/wn/${iconID}@2x.png`;
+    return url;
   };
 
   return (
@@ -78,7 +84,13 @@ const WeatherModal = () => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Current Weather In {data.name}
+              Current Weather In {data.name}{" "}
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <img
+                src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+                alt="weather icon"
+              />
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Temp: {data.main.temp}
@@ -87,11 +99,13 @@ const WeatherModal = () => {
               Feels Like: {data.main.feels_like}{" "}
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Humidity: {data.main.humidity} Min: {data.main.temp_min} Max:{" "}
-              {data.main.temp_max}
+              Humidity: {data.main.humidity}%
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Min: {data.main.temp_min} Max: {data.main.temp_max}
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Description: {toTitleCase(data.weather[0].description)}
             </Typography>
           </Box>
         </Modal>
