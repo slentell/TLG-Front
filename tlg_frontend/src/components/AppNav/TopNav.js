@@ -36,6 +36,7 @@ import { useDispatch } from "react-redux";
 
 import { useTeam } from "../../Providers/TeamProvider";
 import { useUserType } from "../../Providers/UserTypeProvider";
+import WeatherModal from "../WeatherModal/WeatherModal";
 
 const data = [
   { name: "Home", icon: <HomeOutlined />, path: "/" },
@@ -54,10 +55,8 @@ export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = useState(false);
 
- 
   const { team, setTeam } = useTeam();
-  const { coachUser, athleteUser, currentUser } = useUserType()
-
+  const { coachUser, athleteUser, currentUser } = useUserType();
 
   // const handleChange = (event) => {
   //   setAuth(event.target.checked);
@@ -71,7 +70,6 @@ export default function MenuAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
 
   const logOut = () => {
     dispatch(logout());
@@ -112,7 +110,7 @@ export default function MenuAppBar() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar
           position="static"
-        
+
           // sx={{bgcolor: `${team[0].primary_color}`, color: `${team[0].secondary_color}`}}
         >
           <Toolbar>
@@ -136,6 +134,7 @@ export default function MenuAppBar() {
                 {team[0].team_name} {team[0].gender} Weightlifting Team
               </Typography>
             )}
+            <WeatherModal />
             {currentUser && (
               <Typography>Hello, {currentUser.first_name}</Typography>
             )}
@@ -175,13 +174,15 @@ export default function MenuAppBar() {
                     </Link>
                   )}
                   {athleteUser && (
-                     <Link
-                     to="update-profile"
-                     style={{ textDecoration: "none", display: "block" }}
-                   > <MenuItem>Update Profile</MenuItem>
-                   </Link>
+                    <Link
+                      to="update-profile"
+                      style={{ textDecoration: "none", display: "block" }}
+                    >
+                      {" "}
+                      <MenuItem>Update Profile</MenuItem>
+                    </Link>
                   )}
-                 
+
                   <MenuItem onClick={handleClose}>My account</MenuItem>
                   <MenuItem onClick={logOut}>Logout</MenuItem>
                 </Menu>
