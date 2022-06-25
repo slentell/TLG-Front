@@ -4,6 +4,7 @@ import { PostProvider } from './PostProvider';
 import { LiftProvider } from './LiftProvider';
 import { TeamProvider } from "./TeamProvider";
 import { UserTypeProvider } from "./UserTypeProvider";
+import { MaxLiftProvider } from "./MaxLiftProvider";
 
 
 
@@ -13,6 +14,7 @@ const providers = [
   LiftProvider,
   TeamProvider,
   UserTypeProvider,
+  MaxLiftProvider
 
 
 ];
