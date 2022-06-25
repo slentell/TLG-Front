@@ -5,6 +5,8 @@ import { useAthletes } from "../../Providers/AthleteProvider";
 const ViewAllAthletes = () => {
   const { athletes, setAthletes } = useAthletes([]);
 
+
+
   return (
     <div style={{ height: 300, width: "100%" }}>
       <DataGrid
