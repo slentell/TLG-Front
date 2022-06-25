@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 import { useTeam } from "../../Providers/TeamProvider";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { useAthletes } from "../../Providers/AthleteProvider";
@@ -32,13 +32,13 @@ const defaultValues = {
 };
 
 const UpdateProfile = () => {
+  // context handlers
   const { handleAthleteSubmit } = useAthletes();
   const { team } = useTeam();
-
-  const [date, setDate] = useState(new Date());
-
-
+  // this components state
+  // const [date, setDate] = useState(new Date());
   const [formValues, setFormValues] = useState(defaultValues);
+  // event handlers
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -47,26 +47,19 @@ const UpdateProfile = () => {
       [name]: value,
     });
   };
-  // const handleChange = async (newDate) => {
-  //   const somethingGood = moment(newDate).format("YYYY-MM-DD");
-  //   console.log(somethingGood)
-  //   setDate(somethingGood);
-  //   setFormValues({
-  //     ...formValues,
-  //     dob: date,
-  //   });
-  //   console.log(date);
-  // };
-
-
-  const handleSubmit = (event, ) => {
-    event.preventDefault();
-    console.log("formValues: ", formValues);
-    const newDate = (moment(date).format("YYYY-MM-DD"))
+  
+  const handleChange = (date) => {
+    console.log("WHAT I THINK THE DATE IS", date)
+    const newDate = moment(date).format("YYYY-MM-DD")
+    console.log("WHAT THE DATE SHOULD BECOME", newDate)
     setFormValues({
       ...formValues,
       dob: newDate,
     });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     handleAthleteSubmit(formValues);
   };
   return (
@@ -122,12 +115,12 @@ const UpdateProfile = () => {
               />
             </Grid>
             <Grid sx={{ mt: "20px" }} item>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DesktopDatePicker
                   label="Birthday"
-                  inputFormat="MM/dd/yyyy"
-                  value={date}
-                  onChange={setDate}
+                  inputFormat="MM/DD/yyyy"
+                  value={formValues.dob}
+                  onChange={handleChange}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
