@@ -9,6 +9,7 @@ export const LiftProvider = ({ children }) => {
   // state for the Lift and axios calls
   const [lifts, setLifts] = useState([]);
 
+
   const liftCalls = async (method, endpoint = "", dataPayload = null) => {
     try {
       const payload = {
