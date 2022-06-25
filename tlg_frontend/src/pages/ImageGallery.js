@@ -49,21 +49,24 @@ const ImageGallery = () => {
   }, [selectedImage]);
 
   const uploadImage = async () => {
-
     const config = {
       headers: {
-        "Authorization": `JWT ${localStorage.getItem("access")}`,
-        "Content-Type": "multipart/form-data"
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+        "Content-Type": "multipart/form-data",
       },
     };
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/tlg/image-gallery/`, {'image': selectedImage}, config)
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/tlg/image-gallery/`,
+        { image: selectedImage },
+        config
+      );
 
-      console.log(res)
+      console.log(res);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   // upload an image
   const fileInput = () => {
@@ -94,7 +97,12 @@ const ImageGallery = () => {
               <div>Image Preview:</div>
               <img src={imageUrl} alt={selectedImage.name} height="100px" />
             </Box>
-            <Button variant="contained" color="primary" component="span" onClick={uploadImage}>
+            <Button
+              variant="contained"
+              color="primary"
+              component="span"
+              onClick={uploadImage}
+            >
               CLICK THIS TO UPLOAD THE PREVIEW
             </Button>
           </div>
