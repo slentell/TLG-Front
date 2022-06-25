@@ -34,12 +34,12 @@ const defaultValues = {
 
 const UpdateProfile = () => {
   // context handlers
-  const { handleAthleteSubmit } = useAthletes("GET");
+  const { handleAthleteSubmit } = useAthletes();
   const { team } = useTeam();
   // this components state
   // const [date, setDate] = useState(new Date());
   const [formValues, setFormValues] = useState(defaultValues);
-  const [athleteData, setAthleteData] = useAthletes()
+  // const [athleteData, setAthleteData] = useAthletes()
   // event handlers
   const handleInputChange = (e) => {
     const { name, value } = e.target;
