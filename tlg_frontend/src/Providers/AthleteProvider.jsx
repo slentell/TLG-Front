@@ -16,6 +16,7 @@ export const AthletesProvider = ({ children }) => {
           authorization: `JWT ${localStorage.getItem("access")}`,
         },
       };
+
       payload.url = endpoint
         ? `${process.env.REACT_APP_API_URL}/tlg/athlete/${endpoint}`
         : `${process.env.REACT_APP_API_URL}/tlg/athlete/`;
@@ -50,7 +51,7 @@ export const AthletesProvider = ({ children }) => {
         console.error("Error fetching api data", error);
       }
     };
-    console.log(athletes)
+    // console.log(athletes)
     getAllAthletes();
   }, [athletes]);
 

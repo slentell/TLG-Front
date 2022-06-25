@@ -29,15 +29,17 @@ const defaultValues = {
   gender: "",
   weight: 0,
   dob: "",
+  team: 0
 };
 
 const UpdateProfile = () => {
   // context handlers
-  const { handleAthleteSubmit } = useAthletes();
+  const { handleAthleteSubmit } = useAthletes("GET");
   const { team } = useTeam();
   // this components state
   // const [date, setDate] = useState(new Date());
   const [formValues, setFormValues] = useState(defaultValues);
+  const [athleteData, setAthleteData] = useAthletes()
   // event handlers
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -58,10 +60,14 @@ const UpdateProfile = () => {
     });
   };
 
+  const handleTeamSelect = (e) => setFormValues({...formValues, team: e.target.value})
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(formValues)
     handleAthleteSubmit(formValues);
   };
+
   return (
     <Box>
       <Typography
@@ -151,6 +157,20 @@ const UpdateProfile = () => {
                     label="Female"
                   />
                 </RadioGroup>
+                <FormLabel
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  Team
+                </FormLabel>
+                <select 
+                  onChange={handleTeamSelect}
+                  name="team"
+                  value={formValues.team}
+                  label="Team"
+                  >
+                  <option value="Select a Team"> -- Team Name -- </option>
+                  {team.map((team, idx) => <option key={idx} value={team.id}>{team.team_name}</option>)}
+                </select> 
               </FormControl>
             </Grid>
 
