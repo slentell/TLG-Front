@@ -19,13 +19,21 @@ import Posts from "./components/Posts/Posts";
 import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
 import BellRinger from "./components/BellRinger/BellRinger";
 
+// Stream Chat 
+import Chat from "./components/Chat/Chat";
+import UnauthedRoute from "./UnauthedRoute";
+import AuthedRoute from "./AuthedRoute";
+
 function App() {
   return (
     <Provider store={store}>
       <AppContextProvider>
         <Router>
+         
           <Layout>
             <Routes>
+                {/* <UnauthedRoute path="/auth/login" component={SignIn} />
+                <AuthedRoute path="/" component={Chat} /> */}
               <Route path="/" element={<HomePage />} />
               <Route path="/coach-dashboard" element={<CoachDashboard />} />
               <Route path="/athlete-dashboard" element={<AthleteDashboard />} />
@@ -38,11 +46,13 @@ function App() {
               <Route path="/new-team" element={<NewTeam />} />
               <Route path="/update-profile" element={<UpdateProfile />} />
               <Route path='/bell-ringers' element={ <BellRinger /> } />
+              <Route path='/chat' element={ <Chat /> } />
               {/*
             <Route path='/calendar' element={ <ImageGallery /> } />
-            <Route path='/chat' element={ <ImageGallery /> } /> */}
+          */}
             </Routes>
           </Layout>
+        
         </Router>
       </AppContextProvider>
     </Provider>

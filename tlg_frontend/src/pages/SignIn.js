@@ -18,6 +18,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import { Stream } from "@mui/icons-material";
 
 
 function Copyright(props) {
@@ -44,7 +45,8 @@ const SignIn = ({ login, isAuthenticated }) => {
 
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+  
   });
 
   const { email, password } = formData;
@@ -53,10 +55,18 @@ const SignIn = ({ login, isAuthenticated }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
   
     login(email, password);
   };
 
+  // const initStream = async (e) => {
+  //   e.preventDefault();
+  //   setFormData({ ...formData, loading: true });
+  //   console.log('email and password ', email, password)
+  //   login(email, password);
+  // };
+  
   const continueWithGoogle = async () => {
     try {
       console.log("--- CONTINUE WITH GOOGLE ---")

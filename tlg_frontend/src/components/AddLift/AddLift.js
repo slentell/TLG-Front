@@ -73,7 +73,7 @@ const Form = () => {
         }}
       >
         {" "}
-        {submittedStatus == "success"
+        {submittedStatus === "success"
           ? "Your lift was saved !"
           : "Your lift was not saved. Please try again"}
       </Alert>

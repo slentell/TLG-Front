@@ -21,6 +21,7 @@ import {
 const initialState = {
   access: localStorage.getItem('access'),
   refresh: localStorage.getItem('refresh'),
+  stream_token: localStorage.getItem('stream'),
   isAuthenticated: null,
   user: null
 };
@@ -50,12 +51,15 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: false
       }
     case LOGIN_SUCCESS:
+  
       localStorage.setItem('access', payload.access);
+      console.log(payload);
       return {
         ...state,
         isAuthenticated: true,
         access: payload.access,
-        refresh: payload.refresh
+        refresh: payload.refresh,
+        
       }  
     case USER_LOADED_SUCCESS:
       return {
@@ -79,11 +83,13 @@ export default function authReducer(state = initialState, action) {
     case LOGOUT:
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
+   
       return {
         ...state,
         access: null,
         refresh: null,
         isAuthenticated: false,
+     
         user: null
       }
     case PASSWORD_RESET_SUCCESS:

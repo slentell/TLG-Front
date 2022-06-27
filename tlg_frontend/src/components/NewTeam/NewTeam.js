@@ -111,13 +111,13 @@ const NewTeam = () => {
                 >
                   <FormControlLabel
                     key="male"
-                    value="M"
+                    value="Boys"
                     control={<Radio size="small" />}
                     label="Boys"
                   />
                   <FormControlLabel
                     key="female"
-                    value="F"
+                    value="Girls"
                     control={<Radio size="small" />}
                     label="Girls"
                   />
