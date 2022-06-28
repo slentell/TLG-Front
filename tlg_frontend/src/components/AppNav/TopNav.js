@@ -46,7 +46,7 @@ const data = [
   { name: "Bell Ringers", icon: <NotificationsActiveIcon />, path: "/bell-ringers" },
   { name: "Image Gallery", icon: <PhotoLibraryIcon />, path: "/images" },
   { name: "Calendar", icon: <CalendarMonthIcon />, path: "/" },
-  { name: "Chat", icon: <ChatIcon />, path: "/" },
+  { name: "Chat", icon: <ChatIcon />, path: "/chat" },
 ];
 
 export default function MenuAppBar() {
@@ -57,6 +57,7 @@ export default function MenuAppBar() {
 
   const { team, setTeam } = useTeam();
   const { coachUser, athleteUser, currentUser } = useUserType();
+  console.log(currentUser)
 
   // const handleChange = (event) => {
   //   setAuth(event.target.checked);
