@@ -17,6 +17,7 @@ import {
 import { useLifts } from "../../Providers/LiftProvider";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import LiftHistory from "../Lifts/LiftHistory";
 // import moment from 'moment'
 
 const dateFormatter = (date) => {
