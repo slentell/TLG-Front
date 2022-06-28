@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 import { useTeam } from "../../Providers/TeamProvider";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { useAthletes } from "../../Providers/AthleteProvider";
@@ -29,16 +29,18 @@ const defaultValues = {
   gender: "",
   weight: 0,
   dob: "",
+  team: 0
 };
 
 const UpdateProfile = () => {
+  // context handlers
   const { handleAthleteSubmit } = useAthletes();
   const { team } = useTeam();
-
-  const [date, setDate] = useState(new Date());
-
-
+  // this components state
+  // const [date, setDate] = useState(new Date());
   const [formValues, setFormValues] = useState(defaultValues);
+  // const [athleteData, setAthleteData] = useAthletes()
+  // event handlers
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -47,28 +49,25 @@ const UpdateProfile = () => {
       [name]: value,
     });
   };
-  // const handleChange = async (newDate) => {
-  //   const somethingGood = moment(newDate).format("YYYY-MM-DD");
-  //   console.log(somethingGood)
-  //   setDate(somethingGood);
-  //   setFormValues({
-  //     ...formValues,
-  //     dob: date,
-  //   });
-  //   console.log(date);
-  // };
-
-
-  const handleSubmit = (event, ) => {
-    event.preventDefault();
-    console.log("formValues: ", formValues);
-    const newDate = (moment(date).format("YYYY-MM-DD"))
+  
+  const handleChange = (date) => {
+    console.log("WHAT I THINK THE DATE IS", date)
+    const newDate = moment(date).format("YYYY-MM-DD")
+    console.log("WHAT THE DATE SHOULD BECOME", newDate)
     setFormValues({
       ...formValues,
       dob: newDate,
     });
+  };
+
+  const handleTeamSelect = (e) => setFormValues({...formValues, team: e.target.value})
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formValues)
     handleAthleteSubmit(formValues);
   };
+
   return (
     <Box>
       <Typography
@@ -122,12 +121,12 @@ const UpdateProfile = () => {
               />
             </Grid>
             <Grid sx={{ mt: "20px" }} item>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DesktopDatePicker
                   label="Birthday"
-                  inputFormat="MM/dd/yyyy"
-                  value={date}
-                  onChange={setDate}
+                  inputFormat="MM/DD/yyyy"
+                  value={formValues.dob}
+                  onChange={handleChange}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
@@ -158,6 +157,20 @@ const UpdateProfile = () => {
                     label="Female"
                   />
                 </RadioGroup>
+                <FormLabel
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  Team
+                </FormLabel>
+                <select 
+                  onChange={handleTeamSelect}
+                  name="team"
+                  value={formValues.team}
+                  label="Team"
+                  >
+                  <option value="Select a Team"> -- Team Name -- </option>
+                  {team.map((team, idx) => <option key={idx} value={team.id}>{team.team_name}</option>)}
+                </select> 
               </FormControl>
             </Grid>
 
