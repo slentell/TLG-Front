@@ -4,19 +4,19 @@ import ViewAthleteDetail from "../components/ViewAthleteDetail/ViewAthleteDetail
 import { Container } from "@mui/system";
 import liftAPI from '../api/liftApi'
 import AddLift from "../components/AddLift/AddLift";
-
+import LiftHistory from "../components/Lifts/LiftHistory";
 
 const AthleteDashboard = () => {
   const [value, setValue] = React.useState("blog");
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const getAthleteLiftHistory = async (athlete_id) => {
-      const data = await liftAPI.fetchAthleteLiftHistory(athlete_id)
-      console.log(data)
-    }
-    getAthleteLiftHistory(2)
-  }, [])
+  //   const getAthleteLiftHistory = async (athlete_id) => {
+  //     const data = await liftAPI.fetchAthleteLiftHistory(athlete_id)
+  //     console.log(data)
+  //   }
+  //   getAthleteLiftHistory(2)
+  // }, [])
 
 
   const handleChange = (event, newValue) => {
@@ -44,6 +44,7 @@ const AthleteDashboard = () => {
       {value === "progress" && 
       <div> 
         <AddLift />
+        <LiftHistory/>
       </div>}
       {value === "athlete" && (
         <div>

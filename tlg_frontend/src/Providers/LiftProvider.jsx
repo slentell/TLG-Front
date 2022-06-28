@@ -32,6 +32,20 @@ export const LiftProvider = ({ children }) => {
     }
   };
 
+  const getLiftHistory = async (currentUser) => {
+    console.log('current user inside get lift history', currentUser)
+    try {
+      const data = await liftCalls("get", currentUser);
+      console.log('data inside getLiftHistory ', data)
+      if (data.length != lifts.length) {
+        console.log('lifts have been set')
+        setLifts(data)
+      }
+    } catch (error) {
+      console.log("Error fetching lifts ", error)
+    }
+  }
+
   const handleLiftSubmit = async (liftData) => {
     console.log("initial lift data ", liftData);
     let submitted = 'success'
@@ -55,6 +69,7 @@ export const LiftProvider = ({ children }) => {
         lifts,
         setLifts,
         handleLiftSubmit,
+        getLiftHistory,
       }}
     >
       {children}

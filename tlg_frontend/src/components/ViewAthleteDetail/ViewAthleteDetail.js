@@ -1,7 +1,8 @@
 import React from "react";
 import { Avatar, Box, Grid, Card } from "@mui/material";
-import AthleteMaxList from "../AthleteMaxList/AthleteMaxList";
+// import AthleteMaxList from "../AthleteMaxList/AthleteMaxList";
 import PersonalInfoCard from "../PersonalInfoCard/PersonalInfoCard";
+import LiftHistory from "../Lifts/LiftHistory";
 
 const ViewAthleteDetail = () => {
   return (
@@ -26,7 +27,8 @@ const ViewAthleteDetail = () => {
           <Grid item sx={8}>
             Max but with only this user not all
             <Card sx={{ margin: 3 }}>
-              <AthleteMaxList />
+              <LiftHistory/>
+              {/* <AthleteMaxList /> */}
             </Card>
           </Grid>
         </Grid>
