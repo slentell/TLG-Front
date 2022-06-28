@@ -108,7 +108,7 @@ import { Chat, Channel, ChannelHeader, MessageInput, MessageInputSmall, Virtuali
 
 import 'stream-chat-react/dist/css/index.css';
 
-const chatClient = StreamChat.getInstance('pf2tqhes9zqv');
+const chatClient = StreamChat.getInstance('');
 const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoidGhyb2JiaW5nLW1vdXNlLTkiLCJleHAiOjE2NTYyODkyMzd9.GBpoaH-UPl35QnL4s1WnTSmajgDf_swTWlpH_38OZb4';
 
 chatClient.connectUser(
