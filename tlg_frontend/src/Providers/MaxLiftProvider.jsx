@@ -16,8 +16,8 @@ export const MaxLiftProvider = ({ children }) => {
         },
       };
       payload.url = endpoint
-        ? `${process.env.REACT_APP_API_URL}/tlg/max-lift/${endpoint}`
-        : `${process.env.REACT_APP_API_URL}/tlg/max-lift/`;
+        ? `${process.env.REACT_APP_API_URL}/tlg/max-lift-by-team/${endpoint}`
+        : `${process.env.REACT_APP_API_URL}/tlg/max-lift-by-team/`;
       if (dataPayload) {
         payload.data = dataPayload;
       }
@@ -32,6 +32,7 @@ export const MaxLiftProvider = ({ children }) => {
     const getMaxLift = async () => {
       try {
         const data = await maxLiftCalls("get");
+    
         if (data.length !== maxLift.length) {
           setMaxLift(data);
         }

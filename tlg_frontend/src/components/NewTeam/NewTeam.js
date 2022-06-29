@@ -36,7 +36,6 @@ const NewTeam = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formValues);
     handleTeamSubmit(formValues);
   };
 

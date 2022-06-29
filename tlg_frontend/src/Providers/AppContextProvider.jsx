@@ -5,6 +5,7 @@ import { LiftProvider } from './LiftProvider';
 import { TeamProvider } from "./TeamProvider";
 import { UserTypeProvider } from "./UserTypeProvider";
 import { MaxLiftProvider } from "./MaxLiftProvider";
+import { AthleteByTeamProvider } from "./AthleteByTeam";
 
 
 
@@ -14,7 +15,8 @@ const providers = [
   LiftProvider,
   TeamProvider,
   UserTypeProvider,
-  MaxLiftProvider
+  MaxLiftProvider,
+  AthleteByTeamProvider,
 
 
 ];

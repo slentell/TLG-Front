@@ -1,45 +1,45 @@
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { Container } from "@mui/system";
+import { Container } from "@mui/material";
+import { useMaxLift } from "../../Providers/MaxLiftProvider";
 
 const AthleteMaxList = () => {
+  const { maxLift } = useMaxLift();
+  console.log("Athlete Max List:", maxLift);
 
-  
+  const columns = [
+    { field: "name", headerName: "Athlete Name", width: 250 },
+    { field: "lift1", headerName: "Clean", width: 250 },
+    { field: "lift2", headerName: "Clean & Jerk", width: 200 },
+    { field: "lift3", headerName: "Snatch", width: 250 },
+    { field: "lift4", headerName: "Bench", width: 250 },
+  ];
+
+  const liftRows = [];
+  maxLift.map((lifts, index) => {
+    liftRows.push({
+      id: index,
+      name: lifts.name,
+      lift1: lifts.clean,
+      lift2: lifts.clean_jerk,
+      lift3: lifts.snatch,
+      lift4: lifts.bench,
+    });
+  });
 
   return (
-    <Container sx={{
-      backgroundColor: "whitesmoke"
-    }}>
-    <div style={{ height: 300, width: "100%" }}>
-      <DataGrid
-        columns={[
-          { field: "name", headerName: "Athlete Name", width: 250 },
-          { field: "lift1", headerName: "Clean", width: 250 },
-          { field: "lift2", headerName: "Clean & Jerk", width: 200 },
-          { field: "lift3", headerName: "Bench", width: 250 },
-          { field: "lift4", headerName: "Snatch", width: 250 },
-        ]}
-        rows={[
-          {
-            id: 1,
-            name: "Swole Pikachu",
-            lift1: "125",
-            lift2: "130",
-            lift3: "200",
-            lift4: "200",
-          },
-          {
-            id: 2,
-            name: "UltraSwole Charmander",
-            lift1: "200",
-            lift2: "260",
-            lift3: "300",
-            lift4: "250",
-          },
-        ]}
-        components={{ Toolbar: GridToolbar }}
-      />
-    </div>
+    <Container
+      sx={{
+        backgroundColor: "whitesmoke",
+      }}
+    >
+      <div style={{ height: 300, width: "100%" }}>
+        <DataGrid
+          columns={columns}
+          rows={liftRows}
+          components={{ Toolbar: GridToolbar }}
+        />
+      </div>
     </Container>
   );
 };
