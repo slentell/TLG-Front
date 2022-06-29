@@ -118,6 +118,7 @@ chatClient.connectUser(
     image: 'https://getstream.io/random_png/?id=throbbing-mouse-9&name=throbbing',
   },
   userToken,
+  // chatClient.devToken('john'),
 );
 
 const channel = chatClient.channel('livestream', 'liftChat', {

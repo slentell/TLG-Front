@@ -5,6 +5,9 @@ import { useLifts } from "../../Providers/LiftProvider";
 import { useSelector } from "react-redux";
 import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-moment';
+import { LiftProvider } from "../../Providers/LiftProvider";
+
+// dont get rid of Chart, even though it is not highlighted it is holding the graph together
 import Chart from 'chart.js/auto';
 
 const AthleteLiftHistory = () => {
@@ -18,7 +21,8 @@ const AthleteLiftHistory = () => {
             await getLiftHistory(currentUser.id)
         }
         getLifts()
-    }, [])
+        console.log('inside use effect ')
+    }, [lifts])
 
     const displayLifts = () => {
         if (lifts) {
@@ -42,6 +46,7 @@ const AthleteLiftHistory = () => {
             )
         }
     }
+
     // creating dataset for each lift
     const createDataSet = () => {
         const liftTypes = {'power_clean':'', 'front_squat':'', 'squat_clean':'', 'push_jerk':'', 'power_snatch': '', 'squat_snatch': ''};
@@ -83,7 +88,7 @@ const AthleteLiftHistory = () => {
 
     const data = {
         // labels are dates on x axis
-        labels : lifts.map((lift, idx) => idx + 1),
+        labels : lifts.map((lift) => ''),
         datasets: createDataSet(),
     }
     const displayGraph = () => {
@@ -141,24 +146,26 @@ const AthleteLiftHistory = () => {
 
     console.log('the lift history is ', lifts);
     return (
-        <Container sx={{
-            backgroundColor: "whitesmoke"
-        }}>
-            <div style={{ height: 300, width: "100%" }}>
-            <DataGrid
-                columns={[
-                    { field: "date", headerName: "Date", width: 333 },
-                    { field: "lift", headerName: "Lift", width: 333 },
-                    { field: "weight", headerName: "Weight", width: 333 },
-                ]}
-                rows={ displayLifts() }
-                components={{ Toolbar: GridToolbar }}
-            />
-            </div>
-            <div>
-                { lifts && displayGraph() }
-            </div>
-        </Container>
+        <LiftProvider>
+            <Container sx={{
+                backgroundColor: "whitesmoke"
+            }}>
+                <div style={{ height: 300, width: "100%" }}>
+                <DataGrid
+                    columns={[
+                        { field: "date", headerName: "Date", width: 333 },
+                        { field: "lift", headerName: "Lift", width: 333 },
+                        { field: "weight", headerName: "Weight", width: 333 },
+                    ]}
+                    rows={ displayLifts() }
+                    components={{ Toolbar: GridToolbar }}
+                />
+                </div>
+                <div>
+                    { lifts && displayGraph() }
+                </div>
+            </Container>
+        </LiftProvider>
         );
     };
 

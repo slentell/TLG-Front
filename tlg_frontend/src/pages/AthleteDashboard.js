@@ -9,16 +9,6 @@ import LiftHistory from "../components/Lifts/LiftHistory";
 const AthleteDashboard = () => {
   const [value, setValue] = React.useState("blog");
 
-  // useEffect(() => {
-
-  //   const getAthleteLiftHistory = async (athlete_id) => {
-  //     const data = await liftAPI.fetchAthleteLiftHistory(athlete_id)
-  //     console.log(data)
-  //   }
-  //   getAthleteLiftHistory(2)
-  // }, [])
-
-
   const handleChange = (event, newValue) => {
     event.preventDefault();
     setValue(newValue);
@@ -43,12 +33,10 @@ const AthleteDashboard = () => {
       {value === "blog" && <div> Blog things </div>}
       {value === "progress" && 
       <div> 
-        <AddLift />
         <LiftHistory/>
       </div>}
       {value === "athlete" && (
         <div>
-          
           <ViewAthleteDetail />
         </div>
       )}
