@@ -12,7 +12,8 @@ import Chart from 'chart.js/auto';
 
 const AthleteLiftHistory = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
-    const { getLiftHistory, lifts, setLifts } = useLifts();
+    const { getLiftHistory, lifts, setLifts } = useLifts()
+    console.log('lifts:', lifts);
     var randomColor = require('randomcolor');
     let dataLength = 0;
 
@@ -49,7 +50,7 @@ const AthleteLiftHistory = () => {
 
     // creating dataset for each lift
     const createDataSet = () => {
-        const liftTypes = {'power_clean':'', 'front_squat':'', 'squat_clean':'', 'push_jerk':'', 'power_snatch': '', 'squat_snatch': ''};
+        const liftTypes = {'clean':'', 'clean_jerk':'', 'snatch':'', 'bench':''};
         lifts.map((lift)=> {
             if (liftTypes[lift.lift]) {
                 liftTypes[lift.lift]['data'].push(lift.weight)
