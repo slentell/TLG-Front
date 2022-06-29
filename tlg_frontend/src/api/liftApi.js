@@ -11,7 +11,7 @@ const fetchTeamLiftHistory = async (team) => {
   })
   .then(function (response) {
     // handle success
-    console.log(response);
+    // console.log(response);
   })
   .catch(function (error) {
     // handle error

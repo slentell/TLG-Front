@@ -57,7 +57,7 @@ export default function MenuAppBar() {
 
   const { team, setTeam } = useTeam();
   const { coachUser, athleteUser, currentUser } = useUserType();
-  console.log(currentUser)
+
 
   // const handleChange = (event) => {
   //   setAuth(event.target.checked);

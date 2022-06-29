@@ -115,12 +115,11 @@ const Form = () => {
                   label="Select a Lift"
                   onChange={handleInputChange}
                 >
-                  <MenuItem value="power_clean">Power Clean</MenuItem>
-                  <MenuItem value="front_squat">Front Squat</MenuItem>
-                  <MenuItem value="squat_clean">Squat Clean</MenuItem>
-                  <MenuItem value="push_jerk">Push Jerk</MenuItem>
-                  <MenuItem value="power_snatch">Power Snatch</MenuItem>
-                  <MenuItem value="squat_snatch">Squat Snatch</MenuItem>
+                  <MenuItem value="clean">Clean</MenuItem>
+                  <MenuItem value="clean_jerk">Clean & Jerk</MenuItem>
+                  <MenuItem value="snatch">Snatch</MenuItem>
+                  <MenuItem value="bench">Bench</MenuItem>
+            
                 </Select>
               </FormControl>
             </Grid>
