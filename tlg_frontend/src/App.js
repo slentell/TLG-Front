@@ -18,6 +18,7 @@ import Layout from "./hocs/Layout";
 import Posts from "./components/Posts/Posts";
 import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
 import BellRinger from "./components/BellRinger/BellRinger";
+import LiftHistory from "./components/Lifts/LiftHistory";
 
 // Stream Chat 
 import Chat from "./components/Chat/Chat";
@@ -46,6 +47,7 @@ function App() {
               <Route path="/new-team" element={<NewTeam />} />
               <Route path="/update-profile" element={<UpdateProfile />} />
               <Route path='/bell-ringers' element={ <BellRinger /> } />
+              <Route path='/progress' element={<LiftHistory/>} />
               <Route path='/chat' element={ <Chat /> } />
               {/*
             <Route path='/calendar' element={ <ImageGallery /> } />

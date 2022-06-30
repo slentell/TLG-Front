@@ -16,7 +16,8 @@ const AthleteMaxList = () => {
   ];
 
   const liftRows = [];
-  maxLift.map((lifts, index) => {
+  // eslint-disable-next-line array-callback-return
+  maxLift ? maxLift.map((lifts, index) => {
     liftRows.push({
       id: index,
       name: lifts.name,
@@ -25,7 +26,8 @@ const AthleteMaxList = () => {
       lift3: lifts.snatch,
       lift4: lifts.bench,
     });
-  });
+  }) : <></>;
+
 
   return (
     <Container

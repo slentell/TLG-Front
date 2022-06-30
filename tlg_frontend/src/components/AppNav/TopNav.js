@@ -41,7 +41,7 @@ import WeatherModal from "../WeatherModal/WeatherModal";
 const data = [
   { name: "Home", icon: <HomeOutlined />, path: "/" },
   { name: "Add a lift sesh", icon: <AddIcon />, path: "/add-lift-session" },
-  { name: "Track your progress", icon: <AssessmentIcon />, path: "/" },
+  { name: "Track your progress", icon: <AssessmentIcon />, path: "/progress" },
   { name: "View Posts", icon: <InboxOutlined />, path: "/posts" },
   { name: "Bell Ringers", icon: <NotificationsActiveIcon />, path: "/bell-ringers" },
   { name: "Image Gallery", icon: <PhotoLibraryIcon />, path: "/images" },

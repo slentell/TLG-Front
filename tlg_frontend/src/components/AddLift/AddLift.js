@@ -32,7 +32,7 @@ const Form = () => {
   const [submittedStatus, setSubmittedStatus] = React.useState(null);
   const [alertOpen, setAlertOpen] = React.useState(false);
   const [formValues, setFormValues] = useState({
-    lift: "power_clean",
+    lift: "clean",
     weight: 100,
     date_of_lift: dateFormatter(new Date()),
   });
@@ -120,7 +120,6 @@ const Form = () => {
                   <MenuItem value="clean_jerk">Clean & Jerk</MenuItem>
                   <MenuItem value="snatch">Snatch</MenuItem>
                   <MenuItem value="bench">Bench</MenuItem>
-            
                 </Select>
               </FormControl>
             </Grid>
