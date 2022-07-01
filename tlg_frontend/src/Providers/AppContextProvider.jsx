@@ -6,6 +6,7 @@ import { TeamProvider } from "./TeamProvider";
 import { UserTypeProvider } from "./UserTypeProvider";
 import { MaxLiftProvider } from "./MaxLiftProvider";
 import { AthleteByTeamProvider } from "./AthleteByTeam";
+import { BellRingerProvider } from "./BellringerProvider";
 
 
 
@@ -17,6 +18,7 @@ const providers = [
   UserTypeProvider,
   MaxLiftProvider,
   AthleteByTeamProvider,
+  BellRingerProvider,
 
 
 ];
