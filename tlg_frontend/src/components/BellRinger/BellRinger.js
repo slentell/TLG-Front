@@ -1,13 +1,13 @@
 import React from 'react'
 import { Box, Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material'
 
-import { useMaxLift } from '../../Providers/MaxLiftProvider'
+import { useBellRinger } from '../../Providers/BellringerProvider'
 
 
 
 const BellRinger = () => {
-  const { maxLift } = useMaxLift();
-  console.log(maxLift)
+  const { bellRinger } = useBellRinger();
+  console.log('bellRinger:', bellRinger)
   return (
     <Box>
       <Container>
@@ -26,7 +26,7 @@ const BellRinger = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {maxLift ? maxLift.map((lift) => (
+          {bellRinger ? bellRinger.map((lift) => (
            
             <TableRow
               key={lift.id}
