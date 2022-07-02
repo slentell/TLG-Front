@@ -13,6 +13,7 @@ import {
 } from "@mui/material/";
 import { Link, useNavigate } from "react-router-dom";
 
+
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { signup } from "../actions/auth";
@@ -69,6 +70,7 @@ const Signup = ({ signup }) => {
 
     if (password === re_password) {
       signup(first_name, last_name, email, password, re_password, acctType);
+
       navigate("/");
     }
   };

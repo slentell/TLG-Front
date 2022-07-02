@@ -57,7 +57,7 @@ const ImageGallery = () => {
     };
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/tlg/image-gallery/`,
+        `/tlg/image-gallery/`,
         { image: selectedImage },
         config
       );

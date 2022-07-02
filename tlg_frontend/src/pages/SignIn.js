@@ -18,7 +18,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
-import { Stream } from "@mui/icons-material";
+
+import { useUserType } from "../Providers/UserTypeProvider";
 
 
 function Copyright(props) {
@@ -42,6 +43,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 const SignIn = ({ login, isAuthenticated }) => {
+  const {setAuth} = useUserType();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -58,6 +60,8 @@ const SignIn = ({ login, isAuthenticated }) => {
 
   
     login(email, password);
+    
+    setAuth(true);
   };
 
   // const initStream = async (e) => {
@@ -80,7 +84,8 @@ const SignIn = ({ login, isAuthenticated }) => {
 
   if (isAuthenticated) {
     return <Navigate to='/posts' />
-  }
+
+  } 
 
   return (
     <ThemeProvider theme={theme}>

@@ -83,7 +83,8 @@ export const googleAuthenticate = (state, code) => async (dispatch) => {
       console.log(`formBody: ${formBody}`);
       console.log("AXIOS POST");
       const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?${formBody}`,
+        // `${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?${formBody}`,
+        `${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?state=dBZMVxVFkc84ZJoTZKCul4NX3i0ZyEIv&code=4%2F0AX4XfWhVkW3dX1Yyw8bO6ExjLBkyegXyMwiqywB_l_RVR2WaaVFJDAwxx2X_vOUGNQYLpQ`,
         config
       );
       console.log(`res: ${res}`);
@@ -177,6 +178,7 @@ export const signup =
         "Content-Type": "application/json",
       },
     };
+    
 
     try {
       const res = await axios.post(

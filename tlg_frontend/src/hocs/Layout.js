@@ -9,6 +9,7 @@ const Layout = (props) => {
   let location = useLocation();
 
   useEffect(() => {
+    console.log(location.search)
     const values = queryString.parse(location.search);
     const state = values.state ? values.state : null;
     const code = values.code ? values.code : null;
