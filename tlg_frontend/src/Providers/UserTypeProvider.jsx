@@ -10,6 +10,7 @@ export const UserTypeProvider = ({ children }) => {
   const [coachUser, setCoachUser] = useState(false);
   const [athleteUser, setAthleteUser] = useState(false);
   const { user: currentUser } = useSelector((state) => state.auth);
+  const [auth, setAuth] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
@@ -26,6 +27,8 @@ export const UserTypeProvider = ({ children }) => {
         athleteUser,
         setAthleteUser,
         currentUser,
+        auth,
+        setAuth,
       }}
     >
       {children}

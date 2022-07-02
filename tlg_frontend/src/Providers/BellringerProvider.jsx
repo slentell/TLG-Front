@@ -17,7 +17,7 @@ export const BellRingerProvider = ({ children }) => {
         : `${process.env.REACT_APP_API_URL}/tlg/bell-ringer-by-team/`;
       if (dataPayload) {
         payload.data = dataPayload;
-        console.log('payload', payload);
+        ;
       }
       const { data } = await axios(payload);
       return data;

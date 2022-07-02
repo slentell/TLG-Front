@@ -51,12 +51,12 @@ const data = [
 
 export default function MenuAppBar() {
   // eslint-disable-next-line
-  const [auth, setAuth] = React.useState(true);
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = useState(false);
 
   const { team, setTeam } = useTeam();
-  const { coachUser, athleteUser, currentUser } = useUserType();
+  const { coachUser, athleteUser, currentUser, auth, setAuth } = useUserType();
 
 
   // const handleChange = (event) => {
@@ -75,6 +75,7 @@ export default function MenuAppBar() {
   const logOut = () => {
     dispatch(logout());
     setTeam([]);
+    setAuth(false);
 
     navigate("/");
   };
@@ -87,22 +88,25 @@ export default function MenuAppBar() {
           <ListItemText primary={item.name} />
         </ListItem>
       ))}
-      {coachUser && (
-        <ListItem component={Link} to={"/coach-dashboard"}>
-          <ListItemIcon>
-            <SportsTwoToneIcon />
-          </ListItemIcon>
-          <ListItemText primary="Coach Dashboard" />
-        </ListItem>
-      )}
-      {athleteUser && (
-        <ListItem component={Link} to={"/athlete-dashboard"}>
-          <ListItemIcon>
-            <EmojiPeopleTwoToneIcon />
-          </ListItemIcon>
-          <ListItemText primary="Athlete Dashboard" />
-        </ListItem>
-      )}
+      
+      {auth ? coachUser && (
+          <ListItem component={Link} to={"/coach-dashboard"}>
+            <ListItemIcon>
+              <SportsTwoToneIcon />
+            </ListItemIcon>
+            <ListItemText primary="Coach Dashboard" />
+          </ListItem>) : <></>
+        }
+        {auth ? athleteUser && (
+          <ListItem component={Link} to={"/athlete-dashboard"}>
+            <ListItemIcon>
+              <EmojiPeopleTwoToneIcon />
+            </ListItemIcon>
+            <ListItemText primary="Athlete Dashboard" />
+          </ListItem>
+        ) : <></>}
+      
+        
     </div>
   );
 
@@ -139,7 +143,7 @@ export default function MenuAppBar() {
             {currentUser && (
               <Typography>Hello, {currentUser.first_name}</Typography>
             )}
-            {auth && (
+            {auth ? (
               <div>
                 <IconButton
                   size="large"
@@ -188,7 +192,15 @@ export default function MenuAppBar() {
                   <MenuItem onClick={logOut}>Logout</MenuItem>
                 </Menu>
               </div>
-            )}
+            ) : <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>}
           </Toolbar>
         </AppBar>
       </Box>

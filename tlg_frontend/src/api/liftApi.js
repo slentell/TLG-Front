@@ -1,6 +1,6 @@
 const axios = require('axios').default
 
-const baseURL = 'http://localhost:8000/tlg/'
+const baseURL = '/tlg/'
 
 const fetchTeamLiftHistory = async (team) => {
   const url = baseURL + 'lift-history/'

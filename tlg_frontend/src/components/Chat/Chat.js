@@ -101,53 +101,53 @@
 
 // live stream option 
 
-import { Container, Box, Typography } from '@mui/material';
-import React from 'react';
-import { StreamChat } from 'stream-chat';
-import { Chat, Channel, ChannelHeader, MessageInput, MessageInputSmall, VirtualizedMessageList, Window } from 'stream-chat-react';
+// import { Container, Box, Typography } from '@mui/material';
+// import React from 'react';
+// import { StreamChat } from 'stream-chat';
+// import { Chat, Channel, ChannelHeader, MessageInput, MessageInputSmall, VirtualizedMessageList, Window } from 'stream-chat-react';
 
-import 'stream-chat-react/dist/css/index.css';
+// import 'stream-chat-react/dist/css/index.css';
 
-const chatClient = StreamChat.getInstance('');
-const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoidGhyb2JiaW5nLW1vdXNlLTkiLCJleHAiOjE2NTYyODkyMzd9.GBpoaH-UPl35QnL4s1WnTSmajgDf_swTWlpH_38OZb4';
+// const chatClient = StreamChat.getInstance('');
+// const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoidGhyb2JiaW5nLW1vdXNlLTkiLCJleHAiOjE2NTYyODkyMzd9.GBpoaH-UPl35QnL4s1WnTSmajgDf_swTWlpH_38OZb4';
 
-chatClient.connectUser(
-  {
-    id: 'throbbing-mouse-9',
-    name: 'throbbing',
-    image: 'https://getstream.io/random_png/?id=throbbing-mouse-9&name=throbbing',
-  },
-  userToken,
-  // chatClient.devToken('john'),
-);
+// chatClient.connectUser(
+//   {
+//     id: 'throbbing-mouse-9',
+//     name: 'throbbing',
+//     image: 'https://getstream.io/random_png/?id=throbbing-mouse-9&name=throbbing',
+//   },
+//   userToken,
+//   // chatClient.devToken('john'),
+// );
 
-const channel = chatClient.channel('livestream', 'liftChat', {
-  image: 'https://cdn.myminifactory.com/assets/object-assets/5e980b0d9169f/images/720X720-img-0353.JPG',
-  name: 'Lift Chat',
-});
+// const channel = chatClient.channel('livestream', 'liftChat', {
+//   image: 'https://cdn.myminifactory.com/assets/object-assets/5e980b0d9169f/images/720X720-img-0353.JPG',
+//   name: 'Lift Chat',
+// });
 
-const ChatComp = () => {
-  return (
-    <Box>
-      <Container sx={{justify:'center', backgroundColor:'grey'}}>
-      <Typography variant='h4' style={{color:"pink"}}>Lift Chat</Typography>
-      </Container>
-    <Container>
-    <Chat client={chatClient} theme='livestream light'>
-      <Channel channel={channel}>
-        <Window>
-          <ChannelHeader live />
-          <VirtualizedMessageList />
-          <MessageInput Input={MessageInputSmall} focus />
-        </Window>
-      </Channel>
-    </Chat>
-    </Container>
-    </Box>
-  )
-};
+// const ChatComp = () => {
+//   return (
+//     <Box>
+//       <Container sx={{justify:'center', backgroundColor:'grey'}}>
+//       <Typography variant='h4' style={{color:"pink"}}>Lift Chat</Typography>
+//       </Container>
+//     <Container>
+//     <Chat client={chatClient} theme='livestream light'>
+//       <Channel channel={channel}>
+//         <Window>
+//           <ChannelHeader live />
+//           <VirtualizedMessageList />
+//           <MessageInput Input={MessageInputSmall} focus />
+//         </Window>
+//       </Channel>
+//     </Chat>
+//     </Container>
+//     </Box>
+//   )
+// };
 
-export default ChatComp;
+// export default ChatComp;
 
 // first attempt 
 
@@ -198,3 +198,21 @@ export default ChatComp;
 
 
 // export default ChatComp;
+
+
+// Chat Engine API attempt
+
+import React from 'react';
+import { ChatEngine } from 'react-chat-engine';
+
+
+
+const ChatComp = () => {
+  return (
+
+<div></div>
+	);
+}
+
+
+export default ChatComp;
