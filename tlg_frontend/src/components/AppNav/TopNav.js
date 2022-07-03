@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import MenuIcon from "@mui/icons-material/Menu";
+
 import AccountCircle from "@mui/icons-material/AccountCircle";
 // import Switch from '@mui/material/Switch';
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -27,13 +27,14 @@ import {
   IconButton,
   MenuItem,
   Menu,
+  Icon,
 } from "@mui/material";
 import { HomeOutlined, InboxOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/auth";
 import { useDispatch } from "react-redux";
-
+import "../../../src/index.css";
 import { useTeam } from "../../Providers/TeamProvider";
 import { useUserType } from "../../Providers/UserTypeProvider";
 import WeatherModal from "../WeatherModal/WeatherModal";
@@ -116,26 +117,29 @@ export default function MenuAppBar() {
         <AppBar
           position="static"
 
-          // sx={{bgcolor: `${team[0].primary_color}`, color: `${team[0].secondary_color}`}}
+          sx={{bgcolor: "#141010"}}
         >
-          <Toolbar>
+          <Toolbar >
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2 }}
+              sx={{ mr: 1 }}
             >
-              <MenuIcon onClick={() => setOpen(true)} />
+              <Icon sx={{ color: "white", fontFamily: 'Alice-Regular', fontSize:'30px', width:40}} onClick={() => setOpen(true)}>
+              TLG
+              </Icon>
             </IconButton>
+            
+              <FitnessCenterIcon  />
             {team.length === 0 ? (
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                <FitnessCenterIcon />
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginLeft:'1rem' }}>
                 Weightlifting Team
               </Typography>
             ) : (
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                <FitnessCenterIcon />
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1,  }}>
+        
                 {team[0].team_name} {team[0].gender} Weightlifting Team
               </Typography>
             )}

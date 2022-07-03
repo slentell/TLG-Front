@@ -21,7 +21,7 @@ import {
 const initialState = {
   access: localStorage.getItem('access'),
   refresh: localStorage.getItem('refresh'),
-  stream_token: localStorage.getItem('stream'),
+  // stream_token: localStorage.getItem('stream'),
   isAuthenticated: null,
   user: null
 };
