@@ -3,7 +3,6 @@ import React from "react";
 import Hero from "../components/Hero/Hero";
 import Section from "../components/Section/Section";
 import KeyboardDoubleArrowUpTwoToneIcon from '@mui/icons-material/KeyboardDoubleArrowUpTwoTone';
-
 import "../../src/index.css";
 import Testimonials from "../components/Testimonials/Testimonials";
 

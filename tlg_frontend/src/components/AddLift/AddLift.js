@@ -11,30 +11,23 @@ import {
   Grid,
   Alert,
 } from "@mui/material";
-// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { useLifts } from "../../Providers/LiftProvider";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import LiftHistory from "../Lifts/LiftHistory";
-// import moment from 'moment'
 
-const dateFormatter = (date) => {
-  var dd = String(date.getDate()).padStart(2, "0");
-  var mm = String(date.getMonth() + 1).padStart(2, "0");
-  var yyyy = date.getFullYear();
-  return `${yyyy}-${mm}-${dd}`;
-};
+import { useLifts } from "../../Providers/LiftProvider";
+import "../../../src/index.css";
+import "./AddLift.css"
+import moment from 'moment'
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
+
 const Form = () => {
-  // moment(new Date()).format('YYYY-MM-DD')
-  // const [date, setDate] = React.useState(new Date());
   const [submittedStatus, setSubmittedStatus] = React.useState(null);
   const [alertOpen, setAlertOpen] = React.useState(false);
   const [formValues, setFormValues] = useState({
     lift: "clean",
     weight: 100,
-    date_of_lift: dateFormatter(new Date()),
+    date_of_lift: new Date(),
   });
 
   const { handleLiftSubmit } = useLifts();
@@ -44,13 +37,14 @@ const Form = () => {
     console.log("e is ", e);
     if (!e.target) {
       const date = e;
-      var dd = String(date.getDate()).padStart(2, "0");
-      var mm = String(date.getMonth() + 1).padStart(2, "0");
-      var yyyy = date.getFullYear();
-      console.log("the date inside handleInputChange ", `${yyyy}-${mm}-${dd}`);
+      console.log("WHAT I THINK THE DATE IS", date)
+      const newDate = moment(date).format("YYYY-MM-DD")
+      console.log("WHAT THE DATE SHOULD BECOME", newDate)
+
       setFormValues({
         ...formValues,
-        ["date_of_lift"]: `${yyyy}-${mm}-${dd}`,
+        // ["date_of_lift"]: `${yyyy}-${mm}-${dd}`,
+        ['date_of_lift']: newDate
       });
       console.log("date  inside if ", formValues.date_of_lift);
     }
@@ -93,7 +87,7 @@ const Form = () => {
       <Box
         sx={{
           "& .MuiTextField-root": { m: 1, width: "25ch" },
-          backgroundColor: "lightgray",
+          backgroundColor: "background.paper",
           mt: "150px",
           borderRadius: "30px",
           width: "50%",
@@ -104,7 +98,7 @@ const Form = () => {
       >
         <Grid container alignItems="center" justify="center" direction="column">
           <Grid item sx={{ mt: 2 }}>
-            <Typography variant="h3">Log your lift sesh here</Typography>
+            <Typography sx={{fontFamily: "Alice"}} variant="h3">Log your lift sesh here</Typography>
           </Grid>
           <form onSubmit={handleSubmit}>
             <Grid item sx={{ m: 1 }} align="center">
@@ -115,11 +109,12 @@ const Form = () => {
                   value={formValues.lift}
                   label="Select a Lift"
                   onChange={handleInputChange}
+                  sx={{fontFamily: "Alice"}}
                 >
-                  <MenuItem value="clean">Clean</MenuItem>
-                  <MenuItem value="clean_jerk">Clean & Jerk</MenuItem>
-                  <MenuItem value="snatch">Snatch</MenuItem>
-                  <MenuItem value="bench">Bench</MenuItem>
+                  <MenuItem sx={{fontFamily: "Alice"}} value="clean">Clean</MenuItem>
+                  <MenuItem sx={{fontFamily: "Alice"}} value="clean_jerk">Clean & Jerk</MenuItem>
+                  <MenuItem sx={{fontFamily: "Alice"}} value="snatch">Snatch</MenuItem>
+                  <MenuItem sx={{fontFamily: "Alice"}} value="bench">Bench</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -129,22 +124,23 @@ const Form = () => {
                 name="weight"
                 label="Weight"
                 type="number"
+                InputProps={{ inputProps: { min: 1, max: 250 }}}
                 value={formValues.weight}
                 onChange={handleInputChange}
+                sx={{fontFamily: "Alice", }}
               />
             </Grid>
             <Grid item sx={{ m: 1 }}>
               <FormControl name="date_of_lift">
-                {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
-                <DatePicker
-                  name="date_of_lift"
-                  label="Date"
-                  // selected={formValues.date_of_lift}
-                  value={formValues.date_of_lift}
-                  onChange={handleInputChange}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                {/* </LocalizationProvider> */}
+                <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <DesktopDatePicker
+                    label="Date of Lift"
+                    inputFormat="MM/DD/yyyy"
+                    value={formValues['date_of_lift']}
+                    onChange={(e) => {handleInputChange(e)}}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
               </FormControl>
             </Grid>
             <Grid item sx={{ mb: 2 }} align="center">
