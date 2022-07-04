@@ -16,12 +16,13 @@ import {
   PASSWORD_RESET_CONFIFRM_SUCCESS,
   PASSWORD_RESET_CONFIRM_FAIL,
   LOGOUT,
+  STREAM_TOKEN_SUCCESS
 } from '../actions/types';
 
 const initialState = {
   access: localStorage.getItem('access'),
   refresh: localStorage.getItem('refresh'),
-  // stream_token: localStorage.getItem('stream'),
+  stream_token: localStorage.getItem('stream_token'),
   isAuthenticated: null,
   user: null
 };
@@ -36,6 +37,10 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isAuthenticated: true
       }
+    case STREAM_TOKEN_SUCCESS:
+      localStorage.setItem('stream_token', payload.stream_token);
+      console.log("streamminggngnignegniegn", payload)
+      return {...state, stream_token: payload.stream_token}
     case GOOGLE_AUTH_SUCCESS:
       localStorage.setItem('access', payload.access);
       localStorage.setItem('refresh', payload.refresh);
@@ -51,7 +56,7 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: false
       }
     case LOGIN_SUCCESS:
-  
+      console.log("logiugnigng in successssss")
       localStorage.setItem('access', payload.access);
       console.log(payload);
       return {
@@ -89,7 +94,6 @@ export default function authReducer(state = initialState, action) {
         access: null,
         refresh: null,
         isAuthenticated: false,
-     
         user: null
       }
     case PASSWORD_RESET_SUCCESS:

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 
 const AuthedRoute = ({ component: Component, loading, ...rest }) => {
   const isAuthed = Boolean(localStorage.getItem("token"));
@@ -12,13 +12,12 @@ const AuthedRoute = ({ component: Component, loading, ...rest }) => {
         ) : isAuthed ? (
           <Component history={props.history} {...rest} />
         ) : (
-        //   <Redirect
-        //     to={{
-        //       pathname: "/auth/login",
-        //       state: { next: props.location }
-        //     }}
-        //   />
-        <Link to="/signin" />
+          <Navigate
+            to={{
+              pathname: "/auth/login",
+              state: { next: props.location }
+            }}
+          />
         )
       }
     />

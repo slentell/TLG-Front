@@ -23,16 +23,16 @@ export const MaxLiftProvider = ({ children }) => {
       }
       const { data } = await axios(payload);
       return data;
-      } catch (error) {
-          console.error(`Error ${method} call for MaxLift`, error.message);
-          return error;
-      } 
-  }
+    } catch (error) {
+      console.error(`Error ${method} call for MaxLift`, error.message);
+      return error;
+    }
+  };
   useEffect(() => {
     const getMaxLift = async () => {
       try {
         const data = await maxLiftCalls("get");
-    
+
         if (data.length !== maxLift.length) {
           setMaxLift(data);
         }
@@ -40,9 +40,9 @@ export const MaxLiftProvider = ({ children }) => {
         console.error("Error fetching maxLift", error);
       }
     };
-     getMaxLift();
+    getMaxLift();
   }, [maxLift]);
-  
+
   return (
     <MaxLiftContext.Provider
       value={{

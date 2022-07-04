@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useEffect} from "react";
 
 
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -33,10 +33,9 @@ import { HomeOutlined, InboxOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../../../src/index.css";
 import { useTeam } from "../../Providers/TeamProvider";
-import { useUserType } from "../../Providers/UserTypeProvider";
 import WeatherModal from "../WeatherModal/WeatherModal";
 
 const data = [
@@ -57,7 +56,7 @@ export default function MenuAppBar() {
   const [open, setOpen] = useState(false);
 
   const { team, setTeam } = useTeam();
-  const { coachUser, athleteUser, currentUser, auth, setAuth } = useUserType();
+  const {user: currentUser, isAuthenticated: auth} = useSelector((state) => state.auth);
 
 
   // const handleChange = (event) => {
@@ -75,8 +74,7 @@ export default function MenuAppBar() {
 
   const logOut = () => {
     dispatch(logout());
-    setTeam([]);
-    setAuth(false);
+    // setTeam([]);
 
     navigate("/");
   };
@@ -90,7 +88,7 @@ export default function MenuAppBar() {
         </ListItem>
       ))}
       
-      {auth ? coachUser && (
+      {currentUser && currentUser.account_type && currentUser.account_type === 2 ? (
           <ListItem component={Link} to={"/coach-dashboard"}>
             <ListItemIcon>
               <SportsTwoToneIcon />
@@ -98,14 +96,14 @@ export default function MenuAppBar() {
             <ListItemText primary="Coach Dashboard" />
           </ListItem>) : <></>
         }
-        {auth ? athleteUser && (
+        {currentUser && currentUser.account_type && currentUser.account_type === 1 ? (
           <ListItem component={Link} to={"/athlete-dashboard"}>
             <ListItemIcon>
               <EmojiPeopleTwoToneIcon />
             </ListItemIcon>
             <ListItemText primary="Athlete Dashboard" />
           </ListItem>
-        ) : <></>}
+        ): <></>}
       
         
     </div>
@@ -174,7 +172,7 @@ export default function MenuAppBar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {coachUser && (
+                  {currentUser && currentUser.account_type && currentUser.account_type === 2 && (
                     <Link
                       to="new-team"
                       style={{ textDecoration: "none", display: "block" }}
@@ -182,7 +180,7 @@ export default function MenuAppBar() {
                       <MenuItem>Create Team</MenuItem>
                     </Link>
                   )}
-                  {athleteUser && (
+                  {currentUser && currentUser.account_type && currentUser.account_type === 1 && (
                     <Link
                       to="update-profile"
                       style={{ textDecoration: "none", display: "block" }}
