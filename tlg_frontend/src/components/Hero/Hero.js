@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { useSelector } from "react-redux";
 import { Box, Grid, Typography, Button, Container} from "@mui/material";
 
 import { Link } from "react-router-dom";
 import "../../../src/index.css"
 
-import { useUserType } from "../../Providers/UserTypeProvider";
 const Hero = () => {
   
-  const { coachUser, athleteUser, auth } = useUserType();
-  
+  const {isAuthenticated: auth, user: currentUser} = useSelector((state) => state.auth);
+
+
   return (
     <Box sx={{display:'flex'}}>
       <Grid container sx={{display:'flex'}}>
@@ -46,7 +47,7 @@ const Hero = () => {
           </Link>
         </Container>
         )}
-        {auth ? coachUser && (
+        {currentUser && currentUser.account_type === 2 ? (
           <Container sx={{display:'flex', justifyContent: 'center', alignItems:'center', mt:'5rem'}}>
             <Link
               style={{ textDecoration: "none", color: "white", margin: "5px" }}
@@ -62,8 +63,7 @@ const Hero = () => {
             </Link>
           </Container>
         ): <></>}   
-        
-        {auth ? athleteUser && (
+        {currentUser && currentUser.account_type === 1 ? (
           <Container sx={{display:'flex', justifyContent: 'center', alignItems:'center', mt:'5rem'}}>
            
             <Link
@@ -79,7 +79,8 @@ const Hero = () => {
               </Button>
             </Link>
           </Container>
-         ): <></>}
+         ) : <></>}
+        
         </Grid>
         <Grid
           item

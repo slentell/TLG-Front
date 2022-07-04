@@ -17,13 +17,13 @@ import {
   PASSWORD_RESET_CONFIFRM_SUCCESS,
   PASSWORD_RESET_CONFIRM_FAIL,
   LOGOUT,
+  STREAM_TOKEN_SUCCESS,
 } from "./types";
 
 axios.defaults.withCredentials = true;
 
 export const load_user = () => async (dispatch) => {
   if (localStorage.getItem("access")) {
-
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,6 @@ export const load_user = () => async (dispatch) => {
     };
 
     try {
-
       const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/auth/users/me/`,
         config
@@ -141,6 +140,18 @@ export const checkAuthenticated = () => async (dispatch) => {
     });
   }
 };
+// function to get stream token
+const getStreamToken = async (body) => {
+  const response = await axios.post(
+    `${process.env.REACT_APP_API_URL}/auth/token/login`,
+    body,
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  console.log(response.data);
+  return response.data;
+};
 
 export const login = (email, password) => async (dispatch) => {
   const config = {
@@ -151,6 +162,7 @@ export const login = (email, password) => async (dispatch) => {
 
   const body = JSON.stringify({ email, password });
   try {
+    // handle auth
     const res = await axios.post(
       `${process.env.REACT_APP_API_URL}/auth/jwt/create/`,
       body,
@@ -161,6 +173,10 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+    // handle stream token
+    const payload = await getStreamToken(body);
+    console.log("STREAM TOKEN: ", payload);
+    dispatch({ type: STREAM_TOKEN_SUCCESS, payload: payload });
 
     dispatch(load_user());
   } catch (error) {
@@ -178,7 +194,6 @@ export const signup =
         "Content-Type": "application/json",
       },
     };
-    
 
     try {
       const res = await axios.post(

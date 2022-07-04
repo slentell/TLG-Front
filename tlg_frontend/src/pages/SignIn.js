@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import {
   Avatar,
   Button,
@@ -18,9 +18,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
-
-import { useUserType } from "../Providers/UserTypeProvider";
-
 
 function Copyright(props) {
   return (
@@ -43,49 +40,36 @@ function Copyright(props) {
 const theme = createTheme();
 
 const SignIn = ({ login, isAuthenticated }) => {
-  const {setAuth} = useUserType();
-
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  
+    email: "",
+    password: "",
   });
 
   const { email, password } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value })
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-  
     login(email, password);
-    
-    setAuth(true);
   };
 
-  // const initStream = async (e) => {
-  //   e.preventDefault();
-  //   setFormData({ ...formData, loading: true });
-  //   console.log('email and password ', email, password)
-  //   login(email, password);
-  // };
-  
   const continueWithGoogle = async () => {
     try {
-      console.log("--- CONTINUE WITH GOOGLE ---")
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=http://localhost:3000`)
+      console.log("--- CONTINUE WITH GOOGLE ---");
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=http://localhost:3000`
+      );
 
       window.location.replace(res.data.authorization_url);
-    } catch (err) {
-
-    }
+    } catch (err) {}
   };
 
   if (isAuthenticated) {
-    return <Navigate to='/posts' />
-
-  } 
+    return <Navigate to="/" />;
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -139,7 +123,7 @@ const SignIn = ({ login, isAuthenticated }) => {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
               <TextField
                 margin="normal"
@@ -150,7 +134,7 @@ const SignIn = ({ login, isAuthenticated }) => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -178,16 +162,21 @@ const SignIn = ({ login, isAuthenticated }) => {
               </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>
-            <button className="btn btn-danger mt-3" onClick={continueWithGoogle}>Continue With Google</button>
+            <button
+              className="btn btn-danger mt-3"
+              onClick={continueWithGoogle}
+            >
+              Continue With Google
+            </button>
           </Box>
         </Grid>
       </Grid>
     </ThemeProvider>
   );
-}
+};
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { login })(SignIn);

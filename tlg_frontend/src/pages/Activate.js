@@ -3,12 +3,10 @@ import { Navigate, useParams } from "react-router-dom";
 import { connect } from 'react-redux';
 import { activate } from "../actions/auth";
 import { Button, Typography, Container, Box } from "@mui/material";
-import { useUserType } from "../Providers/UserTypeProvider";
 
 
-const Activate = ({ activate, isAuthenticated }) => {
+const Activate = ({ activate }) => {
   const [activated, setActivated] = useState(false);
-  const { currentUser } = useUserType();
   const { uid, token } = useParams();
 
   const activate_account = e => {    
