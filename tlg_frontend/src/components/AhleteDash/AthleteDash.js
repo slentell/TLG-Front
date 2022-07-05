@@ -1,13 +1,6 @@
 import React from 'react'
-import { Grid, Typography, Box, Container, Button, Icon  } from '@mui/material';
-import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
-import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
-import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
-import ImageIcon from '@mui/icons-material/Image';
-import TimelineIcon from '@mui/icons-material/Timeline';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import ContactPageIcon from '@mui/icons-material/ContactPage';
-import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import { Grid, Typography, Box, Button  } from '@mui/material';
+
 const AthleteDash = () => {
   
   const athleteNav = [
@@ -35,7 +28,7 @@ const AthleteDash = () => {
       name: 'Lift History',
       description: 'View your lift history',
       button: 'Go To Progress',
-      path: '/progress',
+      path: "/progress",
     },
     {
       id: 4,

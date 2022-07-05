@@ -9,21 +9,29 @@ import { LiftProvider } from "../../Providers/LiftProvider";
 
 // dont get rid of Chart, even though it is not highlighted it is holding the graph together
 import Chart from 'chart.js/auto';
+import { current } from "@reduxjs/toolkit";
 
 const AthleteLiftHistory = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
-    const { getLiftHistory, lifts, setLifts } = useLifts()
+    console.log(currentUser)
+    const { getLiftHistory, lifts } = useLifts()
     console.log('lifts:', lifts);
     var randomColor = require('randomcolor');
     let dataLength = 0;
 
+    const getLifts = async () => {
+        await getLiftHistory(currentUser.id)
+    }
+
+    // when the component mounts, get the lifts based off of user auth
     useEffect(() => {
-        const getLifts = async () => {
-            await getLiftHistory(currentUser.id)
-        }
+        if(currentUser) getLifts()
+    }, [currentUser, getLifts])
+
+    // when the lifts change, get the lifts
+    useEffect(() => {
         getLifts()
-        console.log('inside use effect ')
-    }, [lifts])
+    }, [getLifts, lifts])
 
     const displayLifts = () => {
         if (lifts) {
