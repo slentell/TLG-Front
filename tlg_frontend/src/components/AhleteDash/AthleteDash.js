@@ -1,19 +1,21 @@
 import React from 'react'
-import { Grid, Typography, Box, Container, Button, Icon  } from '@mui/material';
-import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
-import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
-import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
-import ImageIcon from '@mui/icons-material/Image';
-import TimelineIcon from '@mui/icons-material/Timeline';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import ContactPageIcon from '@mui/icons-material/ContactPage';
-import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import { Grid, Typography, Box, Button  } from '@mui/material';
+import resume from "../../css/icons/resume.png"
+import lifter from "../../css/icons/weightlifter.png"
+import graph from '../../css/icons/wave-graph.png'
+import bell from '../../css/icons/notification.png'
+import blog from '../../css/icons/blog.png'
+import calendar from '../../css/icons/calendar.png'
+import chat from '../../css/icons/chat.png'
+import picture from '../../css/icons/picture.png'
+
+
 const AthleteDash = () => {
   
   const athleteNav = [
     {
       id: 1,
-      image: 'https://cdn-icons.flaticon.com/png/512/3201/premium/3201671.png?token=exp=1656958966~hmac=8d6316860fdfbc05bf164a246eb96396',
+      image: resume,
       name: 'Personal Info',
       description: 'View and edit your personal information',
       button: 'Go to profile',
@@ -23,7 +25,7 @@ const AthleteDash = () => {
     },
     {
       id: 2,
-      image: 'https://cdn-icons.flaticon.com/png/512/2112/premium/2112333.png?token=exp=1656958930~hmac=71b58bc16a6a4dcc76330abbcfedd6a6',
+      image: lifter,
       name: 'Log a Lift',
       description: 'Log your lift',
       button: 'Log a lift',
@@ -31,15 +33,15 @@ const AthleteDash = () => {
     },
     {
       id: 3,
-      image: 'https://cdn-icons.flaticon.com/png/512/3647/premium/3647724.png?token=exp=1656958769~hmac=6a497df42ad4b13ca5f77d7349834b90',
+      image: graph,
       name: 'Lift History',
       description: 'View your lift history',
       button: 'Go To Progress',
-      path: '/progress',
+      path: "/progress",
     },
     {
       id: 4,
-      image: 'https://cdn-icons.flaticon.com/png/512/2058/premium/2058148.png?token=exp=1656958634~hmac=ad5c445dc92dc0e6ce6af8961bb8a816',
+      image: bell,
       name: 'Bell Ringers',
       description: 'View who is bell ringing ',
       button: 'Go To Bell Ringers',
@@ -47,7 +49,7 @@ const AthleteDash = () => {
     },
     {
       id: 5,
-      image: 'https://cdn-icons-png.flaticon.com/512/2659/2659360.png',
+      image: picture,
       name: 'Image Gallery',
       description: 'View the image gallery',
       button: 'Go To Images',
@@ -55,7 +57,7 @@ const AthleteDash = () => {
     },
     {
       id: 6,
-      image: 'https://cdn-icons.flaticon.com/png/512/2333/premium/2333043.png?token=exp=1656959012~hmac=0ffa4e6fc3c602d5bb6722a5d46ed7a2',
+      image: blog,
       name: 'Posts',
       description: 'View the posts',
       button: 'Go To Posts',
@@ -63,7 +65,7 @@ const AthleteDash = () => {
     },
     {
       id: 7,
-      image: 'https://cdn-icons.flaticon.com/png/512/591/premium/591576.png?token=exp=1656959099~hmac=d86a29a0ac1cf1cd06d9627f746e6628',
+      image: calendar,
       name: 'Calendar',
       description: 'View the calendar',
       button: 'Go To Calendar',
@@ -72,7 +74,7 @@ const AthleteDash = () => {
     },
     {
       id: 8,
-      image: 'https://cdn-icons-png.flaticon.com/512/724/724715.png',
+      image: chat,
       name: 'Chat',
       description: 'Chat with other athletes',
       button: 'Go To Chat',
