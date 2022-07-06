@@ -19,6 +19,7 @@ import Posts from "./components/Posts/Posts";
 import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
 import BellRinger from "./components/BellRinger/BellRinger";
 import LiftHistory from "./components/Lifts/LiftHistory";
+// import LiftDataGrid from "./components/Lifts/LiftDataGrid";
 import AthleteDash from "./components/AhleteDash/AthleteDash";
 
 // Stream Chat 
