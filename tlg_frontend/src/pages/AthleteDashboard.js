@@ -4,7 +4,8 @@ import ViewAthleteDetail from "../components/ViewAthleteDetail/ViewAthleteDetail
 import { Container } from "@mui/system";
 import liftAPI from '../api/liftApi'
 import AddLift from "../components/AddLift/AddLift";
-import LiftHistory from "../components/Lifts/LiftHistory";
+import LiftDataGrid from "../components/Lifts/LiftDataGrid";
+// import LiftHistory from "../components/Lifts/LiftHistory";
 
 const AthleteDashboard = () => {
   const [value, setValue] = React.useState("blog");
@@ -33,7 +34,8 @@ const AthleteDashboard = () => {
       {value === "blog" && <div> Blog things </div>}
       {value === "progress" && 
       <div> 
-        <LiftHistory/>
+        <LiftDataGrid/>
+        {/* <LiftHistory/> */}
       </div>}
       {value === "athlete" && (
         <div>

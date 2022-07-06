@@ -9,7 +9,6 @@ export const LiftProvider = ({ children }) => {
   // state for the Lift and axios calls
   const [lifts, setLifts] = useState([]);
 
-
   const liftCalls = async (method, endpoint = "", dataPayload = null) => {
     try {
       const payload = {
@@ -19,7 +18,7 @@ export const LiftProvider = ({ children }) => {
         },
       };
       payload.url = endpoint
-        ? `${process.env.REACT_APP_API_URL}/tlg/lift-history/${endpoint}`
+        ? `${process.env.REACT_APP_API_URL}/tlg/lift-history/${endpoint}/`
         : `${process.env.REACT_APP_API_URL}/tlg/lift-history/`;
       console.log('payload url ', payload.url);
       if (dataPayload) {
@@ -33,17 +32,31 @@ export const LiftProvider = ({ children }) => {
     }
   };
 
-  const getLiftHistory = async (currentUser) => {
+  const getLiftHistory = async (currentUser, setStateTrue=false) => {
     console.log('current user inside get lift history', currentUser)
     try {
       const data = await liftCalls("get", currentUser);
       console.log('data inside getLiftHistory ', data)
+      
       if (data.length != lifts.length) {
         console.log('lifts have been set')
         setLifts(data)
       }
     } catch (error) {
       console.log("Error fetching lifts ", error)
+    }
+  }
+
+  const handleLiftUpdate = async (liftData, currentUser) => {
+    console.log("initial lift data ", liftData);
+    console.log('current user', currentUser)
+    try {
+      const data = await liftCalls("put", currentUser, liftData);
+      console.log("inside handleLift Submit in lift provider ", data);
+      console.log("status ", data.status);
+      setLifts([...lifts, data])
+    } catch (error) {
+      console.log("There's an error", error);
     }
   }
 
@@ -71,6 +84,7 @@ export const LiftProvider = ({ children }) => {
         setLifts,
         handleLiftSubmit,
         getLiftHistory,
+        handleLiftUpdate,
       }}
     >
       {children}
