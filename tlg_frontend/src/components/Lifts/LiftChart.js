@@ -113,17 +113,6 @@ const AthleteLiftHistory = () => {
             <Container sx={{
                 backgroundColor: "whitesmoke"
             }}>
-                {/* <div style={{ height: 300, width: "100%" }}>
-                <DataGrid
-                    editMode="row"
-                    columns={[
-                        { field: "date", headerName: "Date", width: 333, editable: true },
-                        { field: "lift", headerName: "Lift", width: 333, editable: true },
-                        { field: "weight", headerName: "Weight", width: 333, editable: true },
-                    ]}
-                    rows={ displayLifts() }
-                />
-                </div> */}
                 <div>
                     { lifts && displayGraph() }
                 </div>
