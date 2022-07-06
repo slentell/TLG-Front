@@ -44,7 +44,7 @@ function App() {
               <Route path="/images" element={<ImageGallery />} />
               <Route path="/add-lift-session" element={<AddLift />} />
               <Route path="/posts" element={<Posts />} />
-              <Route path="/activate" element={<Activate />} />
+              <Route path="/activate/:uid/:token" element={<Activate />} />
               <Route path="/new-team" element={<NewTeam />} />
               <Route path="/update-profile" element={<UpdateProfile />} />
               <Route path='/bell-ringers' element={ <BellRinger /> } />
