@@ -45,7 +45,7 @@ const data = [
   { name: "View Posts", icon: <InboxOutlined />, path: "/posts" },
   { name: "Bell Ringers", icon: <NotificationsActiveIcon />, path: "/bell-ringers" },
   { name: "Image Gallery", icon: <PhotoLibraryIcon />, path: "/images" },
-  { name: "Calendar", icon: <CalendarMonthIcon />, path: "/" },
+  { name: "Calendar", icon: <CalendarMonthIcon />, path: "/calendar" },
   { name: "Chat", icon: <ChatIcon />, path: "/chat" },
 ];
 
