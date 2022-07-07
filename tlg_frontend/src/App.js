@@ -25,6 +25,7 @@ import AthleteDash from "./components/AhleteDash/AthleteDash";
 import Chat from "./components/Chat/Chat";
 import UnauthedRoute from "./UnauthedRoute";
 import AuthedRoute from "./AuthedRoute";
+import Calendar from "./pages/Calendar";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
               <Route path='/bell-ringers' element={ <BellRinger /> } />
               <Route path='/progress' element={<LiftHistory/>} />
               <Route path='/chat' element={ <Chat /> } />
+              <Route path='/calendar' element={ <Calendar /> } />
               {/*
             <Route path='/calendar' element={ <ImageGallery /> } />
           */}
