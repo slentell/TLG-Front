@@ -29,11 +29,12 @@ const AddPost = () => {
 
   const [showPicker, setShowPicker] = useState(false);
   const [imgUpload, setImgUpload] = useState(false);
+  const [img, setImg] = useState(null);
   const [inputStr, setInputStr] = useState("");
   const [data, setData] = useState({
     title: "",
     content: inputStr,
-    image: "",
+    image: img,
   });
 
   const onEmojiClick = (e, emojiObject, name) => {
@@ -55,12 +56,15 @@ const AddPost = () => {
     const postData = {
       title: data.title,
       content: inputStr,
-      image: data.image,
+      image: img,
     };
-
+    console.log(postData);
     handlePostSubmit(postData);
+    console.log(postData);
   }
+  console.log(img)
 
+  
   return (
     <div>
       <Button variant="contained" color="primary" onClick={handleOpen}>
@@ -126,10 +130,10 @@ const AddPost = () => {
               <Container>
                 {imgUpload && (
                   <input
+                  accept="image/*"
                     type="file"
-                    name="image"
-                    value={data.image}
-                    onChange={handleChange}
+                    id="select-image"
+                    onChange={(e) => {setImg(e.target.files[0].name)}}
                   />
                 )}
               </Container>
