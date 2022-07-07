@@ -13,9 +13,22 @@ const AthleteLiftHistory = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
     const { getLiftHistory, lifts, setLifts } = useLifts()
     console.log('lifts:', lifts);
-    var randomColor = require('randomcolor');
     let dataLength = 0;
 
+    const generateLiftColor = (liftType) => {
+        if (liftType === "clean") {
+            return 'red'
+        }
+        else if (liftType === "clean_jerk") {
+            return 'green'
+        } 
+        else if (liftType === "snatch") {
+            return 'blue'
+        } 
+        else {
+            return 'purple'
+        }
+    }
     const getLifts = async () => {
         console.log('get lifts called')
         await getLiftHistory(currentUser.id, true)
@@ -33,7 +46,7 @@ const AthleteLiftHistory = () => {
     // creating dataset for each lift
     const createDataSet = () => {
         const liftTypes = {'clean':'', 'clean_jerk':'', 'snatch':'', 'bench':''};
-        lifts.map((lift)=> {
+        lifts.map((lift, idx)=> {
             if (liftTypes[lift.lift]) {
                 liftTypes[lift.lift]['data'].push(lift.weight)
             }
@@ -43,8 +56,8 @@ const AthleteLiftHistory = () => {
                     label: lift.lift,
                     fill: false,
                     lineTension: 0.5,
-                    backgroundColor: randomColor(),
-                    borderColor: 'black',
+                    backgroundColor: generateLiftColor(lift.lift),
+                    borderColor: generateLiftColor(lift.lift),
                     borderWidth: 2,
                     data: [lift.weight]
                 }
@@ -54,7 +67,6 @@ const AthleteLiftHistory = () => {
         dataLength = liftTypes.length
         return Object.values(liftTypes)
     }
-    console.log('lift dates', lifts.map((lift) => lift.date_of_lift))
 
     const data = {
         // labels are dates on x axis
@@ -111,7 +123,7 @@ const AthleteLiftHistory = () => {
     return (
         <LiftProvider>
             <Container sx={{
-                backgroundColor: "whitesmoke"
+                backgroundColor: "whitesmoke", marginTop: 5, marginBottom: 5
             }}>
                 <div>
                     { lifts && displayGraph() }

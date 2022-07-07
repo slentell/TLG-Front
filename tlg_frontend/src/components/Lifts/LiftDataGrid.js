@@ -4,6 +4,7 @@ import { Container } from "@mui/system";
 import { useLifts } from "../../Providers/LiftProvider";
 import { useSelector } from "react-redux";
 import { LiftProvider } from "../../Providers/LiftProvider";
+import { darken, lighten } from '@mui/material/styles';
 
 // CRUD 
 import Button from '@mui/material/Button';
@@ -20,6 +21,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Alert from '@mui/material/Alert';
+import { red } from "@mui/material/colors";
 
 const useFakeMutation = () => {
     return React.useCallback(
@@ -157,16 +159,42 @@ export default function AskConfirmationBeforeSave() {
     return (
         <LiftProvider>
             <Container sx={{
-                backgroundColor: "whitesmoke"
+                backgroundColor: "whitesmoke",
+                '& .clean': {
+                    bgcolor: '#FF7F7F',
+                    '&:hover': {
+                        bgcolor: darken('#FF7F7F', 0.15)
+                    },
+                },
+                '& .clean_jerk': {
+                    bgcolor: '#90EE90',
+                    '&:hover': {
+                        bgcolor: darken('#90EE90', 0.15)
+                    },
+                },
+                '& .snatch' : {
+                    bgcolor: '#ADD8E6',
+                    '&:hover': {
+                        bgcolor: darken('#ADD8E6', 0.15)
+                    },
+                },
+                '& .bench' : {
+                    bgcolor: '#CBC3E3',
+                    '&:hover': {
+                        bgcolor: darken('#CBC3E3', 0.15)
+                    },
+                }
+                // ,
             }}>
-                <div style={{ height: 400, width: '100%' }}>
+                <div style={{ height: 400, width: '100%', margin: 20 }}>
                     {renderConfirmDialog()}
                     { lifts && <DataGrid
                         rows={displayRows()}
+                        getRowClassName={(params) => `${params.row.lift}`}
                         columns={[
-                            { field: "date_of_lift", headerName: "Date", width: 333, editable: true },
-                            { field: "lift", headerName: "Lift", width: 333, editable: true },
-                            { field: "weight", type: "number", headerName: "Weight", width: 333, editable: true },
+                            { field: "date_of_lift", headerName: "Date", width: 333, editable: true, headerAlign: 'center' },
+                            { field: "lift", headerName: "Lift", width: 333, editable: true, headerAlign: 'center' },
+                            { field: "weight", type: "number", headerName: "Weight", width: 333, editable: true, headerAlign: 'center' },
                         ]}
                         processRowUpdate={processRowUpdate}
                         experimentalFeatures={{ newEditingApi: true }}
