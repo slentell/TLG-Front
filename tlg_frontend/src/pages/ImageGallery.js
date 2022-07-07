@@ -4,10 +4,12 @@ import {
   Container,
   ImageList,
   ImageListItem,
+  IconButton,
 } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useImages } from "../Providers/ImageProvider";
 
 const ImageGallery = () => {
   // TO DO :
@@ -38,16 +40,35 @@ const ImageGallery = () => {
 
   // state
   const [selectedImage, setSelectedImage] = useState(null);
-  const [imageGallery, setImageGallery] = useState(itemData);
+  const [imageGallery, setImageGallery] = useState([]);
   const [imageUrl, setImageUrl] = useState(null);
+  console.log(imageGallery)
 
   // if selected image changes, create an object url for the selected image for image preview
+
   useEffect(() => {
     if (selectedImage) {
       setImageUrl(URL.createObjectURL(selectedImage));
     }
   }, [selectedImage]);
 
+  // useEffect to get all images from backend
+  useEffect(() => {
+    // get all images from backend
+    const getAllImages = async () => {
+      const config = {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+        },
+      }
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/tlg/image-gallery/`, config);
+      setImageGallery(res.data);
+    }
+    getAllImages();
+  }, []);
+    
+
+  // function to handle image selection
   const uploadImage = async () => {
     const config = {
       headers: {
@@ -57,7 +78,7 @@ const ImageGallery = () => {
     };
     try {
       const res = await axios.post(
-        `/tlg/image-gallery/`,
+        `${process.env.REACT_APP_API_URL}/tlg/image-gallery/`,
         { image: selectedImage },
         config
       );
@@ -88,6 +109,7 @@ const ImageGallery = () => {
     );
   };
 
+  // image preview
   const previewPhoto = () => {
     return (
       <div>
@@ -111,20 +133,32 @@ const ImageGallery = () => {
     );
   };
 
+
+
+  // image gallery
   return (
     <Container>
       {fileInput()}
       {previewPhoto()}
       <ImageList sx={{ width: 1100, height: 1000 }} cols={3} rowHeight={164}>
-        {imageGallery.map((item) => (
-          <ImageListItem key={item.img}>
-            <img
-              src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
+        {imageGallery.map((item, idx) => (
+          <Container sx={{backgroundColor:'lightgrey'}}>
+          <ImageListItem key={idx} sx={{mt:'40px', }}>
+            <img sx={{maxHeight:'200px'}} 
+              src={item.image}
+              
+              alt={item.author}
               loading="lazy"
             />
+             <IconButton sx={{mt:'20px'}} >
+            <Button >Delete</Button>
+          </IconButton>
           </ImageListItem>
+         
+    
+         
+          
+          </Container>
         ))}
       </ImageList>
     </Container>
