@@ -4,7 +4,8 @@ import { Container } from "@mui/system";
 import { useLifts } from "../../Providers/LiftProvider";
 import { useSelector } from "react-redux";
 import { LiftProvider } from "../../Providers/LiftProvider";
-import { darken, lighten } from '@mui/material/styles';
+import { darken } from '@mui/material/styles';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 // CRUD 
 import Button from '@mui/material/Button';
@@ -21,7 +22,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Alert from '@mui/material/Alert';
-import { red } from "@mui/material/colors";
 
 const useFakeMutation = () => {
     return React.useCallback(
@@ -52,15 +52,15 @@ function computeMutation(newRow, oldRow) {
     return null;
 }
 
-export default function AskConfirmationBeforeSave() {
+export default function LiftDataGrid() {
 
     const mutateRow = useFakeMutation();
     const noButtonRef = React.useRef(null);
-    const [promiseArguments, setPromiseArguments] = React.useState(null);
+    const [promiseArgumentsUpdate, setPromiseArguments] = React.useState(null);
     const [snackbar, setSnackbar] = React.useState(null);
     const handleCloseSnackbar = () => setSnackbar(null);
     const { user: currentUser } = useSelector((state) => state.auth);
-    const { getLiftHistory, lifts, setLifts, handleLiftUpdate } = useLifts()
+    const { getLiftHistory, lifts, handleLiftUpdate, handleLiftDelete } = useLifts()
 
     const getLifts = async () => {
         console.log('get lifts called')
@@ -88,7 +88,7 @@ export default function AskConfirmationBeforeSave() {
         })
     }
 
-    const processRowUpdate = React.useCallback(
+    const processRow = React.useCallback(
         (newRow, oldRow) =>
             new Promise((resolve, reject) => {
                 const mutation = computeMutation(newRow, oldRow);
@@ -106,56 +106,66 @@ export default function AskConfirmationBeforeSave() {
     );
 
     const handleNo = () => {
-        const { oldRow, resolve } = promiseArguments;
+        const { oldRow, resolve } = promiseArgumentsUpdate;
         resolve(oldRow); // Resolve with the old row to not update the internal state
         setPromiseArguments(null);
       };
     
     const handleYes = async () => {
-        const { newRow, oldRow, reject, resolve } = promiseArguments;
+        const { newRow, oldRow, reject, resolve } = promiseArgumentsUpdate;
         try {
             // Make the HTTP request to save in the backend
             const res = await mutateRow(newRow);
             console.log('res ', res)
-            const response = await handleLiftUpdate(newRow, currentUser.id)
-        
             // await getLifts()
+            await handleLiftUpdate(newRow, currentUser.id)
             setSnackbar({ children: 'Lift successfully saved', severity: 'success' });
             resolve(res);
             setPromiseArguments(null);
         } catch (error) {
-            setSnackbar({ children: "Name can't be empty", severity: 'error' });
+            setSnackbar({ children: "Lift couldn't be updated", severity: 'error' });
             reject(oldRow);
             setPromiseArguments(null);
         }
     };
 
+    const handleRowDelete = async (cellValues) => {
+        console.log('in here ', cellValues)
+        try {
+            await handleLiftDelete(cellValues.row, currentUser.id);
+            setSnackbar({ children: 'Lift successfully deleted', severity: 'success' });
+        }
+        catch (error) {
+            setSnackbar({ children: "Lift couldn't be deleted", severity: 'error' });
+        }
+    }
+
     const renderConfirmDialog = () => {
-        if (!promiseArguments) {
+        if (!promiseArgumentsUpdate) {
             return null;
         }
-
-        const { newRow, oldRow } = promiseArguments;
+        const { newRow, oldRow } = promiseArgumentsUpdate;
         const mutation = computeMutation(newRow, oldRow);
+        
+            return (
+                <Dialog
+                    maxWidth="xs"
+                    open={!!promiseArgumentsUpdate}
+                >
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogContent dividers>
+                    {`Pressing 'Yes' will change ${mutation}.`}
+                </DialogContent>
+                <DialogActions>
+                    <Button ref={noButtonRef} onClick={handleNo}>
+                    No
+                    </Button>
+                    <Button onClick={handleYes}>Yes</Button>
+                </DialogActions>
+                </Dialog>
+            );
+        }
 
-        return (
-            <Dialog
-                maxWidth="xs"
-                open={!!promiseArguments}
-            >
-            <DialogTitle>Are you sure?</DialogTitle>
-            <DialogContent dividers>
-                {`Pressing 'Yes' will change ${mutation}.`}
-            </DialogContent>
-            <DialogActions>
-                <Button ref={noButtonRef} onClick={handleNo}>
-                No
-                </Button>
-                <Button onClick={handleYes}>Yes</Button>
-            </DialogActions>
-            </Dialog>
-        );
-    }
     return (
         <LiftProvider>
             <Container sx={{
@@ -184,7 +194,6 @@ export default function AskConfirmationBeforeSave() {
                         bgcolor: darken('#CBC3E3', 0.15)
                     },
                 }
-                // ,
             }}>
                 <div style={{ height: 400, width: '100%', margin: 20 }}>
                     {renderConfirmDialog()}
@@ -195,8 +204,21 @@ export default function AskConfirmationBeforeSave() {
                             { field: "date_of_lift", headerName: "Date", width: 333, editable: true, headerAlign: 'center' },
                             { field: "lift", headerName: "Lift", width: 333, editable: true, headerAlign: 'center' },
                             { field: "weight", type: "number", headerName: "Weight", width: 333, editable: true, headerAlign: 'center' },
+                            {   field: 'delete', 
+                                width: 100, 
+                                headerName: "Delete", 
+                                headerAlign: 'center',
+                                renderCell: (cellValues) => {
+                                    return (
+                                    <DeleteForeverIcon
+                                        onClick={() => {handleRowDelete(cellValues)}}
+                                    >
+                                        Delete
+                                    </DeleteForeverIcon>
+                                    );
+                                }}
                         ]}
-                        processRowUpdate={processRowUpdate}
+                        processRow={processRow}
                         experimentalFeatures={{ newEditingApi: true }}
                     />
                     }
