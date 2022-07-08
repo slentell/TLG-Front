@@ -1,6 +1,8 @@
 import React from 'react'
-import { Box, Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material'
+import { Box, Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } 
+from '@mui/material'
 
+import bell from '../../css/icons/notification.png'
 import { useBellRinger } from '../../Providers/BellringerProvider'
 
 
@@ -10,13 +12,28 @@ const BellRinger = () => {
   console.log('bellRinger:', bellRinger)
   return (
     <Box>
-      <Container>
-        <Typography variant='h1'>
+
+        <Container sx={{display:'flex', 
+        alignContent:'center',alignItems:'center',backgroundColor:'lightgrey', minWidth:'100%'}}>
+          <img src={bell} style={{height:'100px' 
+          }} alt="bellRinger" />
+          <Container sx={{display:'flex', justifyContent:'center'}}>
+        <Typography variant='h1' sx={
+        {fontFamily:'Alice-Regular', 
+        display:'flex'}}>
           Bell Ringers
         </Typography>
-        <Container>
+        </Container>
+        <img src={bell} style={{display:'flex',
+        height:'100px',
+        }} alt="bellRinger" />
+        
+        
+        </Container>
+        <Container sx={{backgroundColor:'black'}}>
+        
         <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650, }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Athlete Name </TableCell>
@@ -41,9 +58,10 @@ const BellRinger = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    
   
         </Container>
-      </Container>
+
     </Box>
     
 
