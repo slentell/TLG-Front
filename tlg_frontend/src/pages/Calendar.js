@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import timeGridPlugin from '@fullcalendar/timegrid'
+import {Container} from '@mui/material'
 
 
 
@@ -60,7 +61,9 @@ const Calendar = () => {
 
   return (
     <div>Calendar
+      <Container sx={{backgroundColor:'lightgrey'}}>
     <FullCalendar
+   
     plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]}
     headerToolbar={{
       left: 'prev,next today',
@@ -86,6 +89,7 @@ const Calendar = () => {
     */
 
   />
+    </Container>
     </div>
   )
 }
