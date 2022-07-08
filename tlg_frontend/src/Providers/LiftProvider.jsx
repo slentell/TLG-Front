@@ -52,11 +52,11 @@ export const LiftProvider = ({ children }) => {
     console.log('current user', currentUser)
     try {
       const data = await liftCalls("put", currentUser, liftData);
-      console.log("inside handleLift Submit in lift provider ", data);
-      console.log("status ", data.status);
+      // console.log("inside handleLift Submit in lift provider ", data);
+      // console.log("status ", data.status);
       setLifts([...lifts, data])
     } catch (error) {
-      console.log("There's an error", error);
+      // console.log("There's an error", error);
     }
   }
 
@@ -65,18 +65,28 @@ export const LiftProvider = ({ children }) => {
     let submitted = 'success'
     try {
       const data = await liftCalls("post", "", liftData);
-      console.log("inside handleLift Submit in lift provider ", data);
+      // console.log("inside handleLift Submit in lift provider ", data);
       if (!data.status) {
         submitted = 'error'
       }
     } catch (error) {
-      console.log("There's an error", error);
+      // console.log("There's an error", error);
       submitted = 'error'
     }
-    console.log('submitted inside handle lift submit ', submitted);
+    // console.log('submitted inside handle lift submit ', submitted);
     return submitted;
   };
 
+  const handleLiftDelete = async (liftData, currentUser) => {
+    console.log('liftData and user inside delete ', liftData, currentUser)
+    try {
+      const data = await liftCalls("delete", currentUser, liftData);
+      console.log('handle Lift Delete ', data)
+    } catch (error) {
+      console.log("There's an error", error);
+    }
+  };
+    
   return (
     <LiftContext.Provider
       value={{
@@ -85,6 +95,7 @@ export const LiftProvider = ({ children }) => {
         handleLiftSubmit,
         getLiftHistory,
         handleLiftUpdate,
+        handleLiftDelete,
       }}
     >
       {children}
