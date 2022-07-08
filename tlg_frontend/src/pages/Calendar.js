@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import timeGridPlugin from '@fullcalendar/timegrid'
+import axios from "axios";
 
 
 
@@ -10,12 +11,41 @@ const Calendar = () => {
 
   const [events, setEvents] = useState([])
 
-  const handleDateClick = (arg) => { // bind with an arrow function
-    alert(arg.dateStr)
+  useEffect(() => {
+    const getTeamEvents = async () => {
+      const config = {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+        },
+      }
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/tlg/calendar/`, config);
+      setEvents(res.data)
+      console.log(events)
+    }
+    getTeamEvents()
+  }, [])
+
+  const addTeamEvent = async (data) => {
+    const config = {
+      headers: {
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+      },
+    }
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/tlg/calendar/`,
+        { data },
+        config
+      );
+
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const getTeamEvents = () => {
-    console.log('events')
+  const handleDateClick = (arg) => { // bind with an arrow function
+    alert(arg.dateStr)
   }
 
   const bullshitEvents = [
@@ -47,7 +77,7 @@ const Calendar = () => {
   }
 
   const handleEventContent = (e) => {
-    console.log(e)
+    // console.log(e)
   }
 
   const handleEventClick = (e) => {
