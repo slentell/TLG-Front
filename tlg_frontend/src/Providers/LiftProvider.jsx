@@ -32,7 +32,7 @@ export const LiftProvider = ({ children }) => {
     }
   };
 
-  const getLiftHistory = async (currentUser, setStateTrue=false) => {
+  const getLiftHistory = async (currentUser) => {
     console.log('current user inside get lift history', currentUser)
     try {
       const data = await liftCalls("get", currentUser);

@@ -98,7 +98,7 @@ const Form = () => {
       >
         <Grid container alignItems="center" justify="center" direction="column">
           <Grid item sx={{ mt: 2 }}>
-            <Typography sx={{fontFamily: "Alice"}} variant="h3">Log your lift sesh here</Typography>
+            <Typography sx={{fontFamily: "Alice"}} variant="h3">Log your lift here</Typography>
           </Grid>
           <form onSubmit={handleSubmit}>
             <Grid item sx={{ m: 1 }} align="center">

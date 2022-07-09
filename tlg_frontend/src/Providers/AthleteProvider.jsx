@@ -1,3 +1,4 @@
+import { SignalCellularNullRounded } from "@mui/icons-material";
 import React, { useState, useEffect, createContext, useContext } from "react";
 
 const axios = require("axios");
@@ -7,6 +8,7 @@ export const useAthletes = () => useContext(AthletesContext);
 
 export const AthletesProvider = ({ children }) => {
   const [athletes, setAthletes] = useState([]);
+  const [individualAthlete, setIndividualAthlete] = useState('')
 
   const athletesCalls = async (method, endpoint = "", dataPayload = null) => {
     try {
@@ -18,7 +20,7 @@ export const AthletesProvider = ({ children }) => {
       };
 
       payload.url = endpoint
-        ? `${process.env.REACT_APP_API_URL}/tlg/athlete/${endpoint}`
+        ? `${process.env.REACT_APP_API_URL}/tlg/athlete/${endpoint}/`
         : `${process.env.REACT_APP_API_URL}/tlg/athlete/`;
       if (dataPayload) {
         payload.data = dataPayload;
@@ -26,7 +28,7 @@ export const AthletesProvider = ({ children }) => {
       const { data } = await axios(payload);
       return data;
     } catch (error) {
-      console.error(`Error ${method} call for Athletes`, error.message);
+        console.error(`Error ${method} call for Athletes`, error.message);
     }
   };
 
@@ -36,6 +38,20 @@ export const AthletesProvider = ({ children }) => {
       const data = await athletesCalls("post", "", athleteData);
       console.log("AthleteData: ", data);
     } catch (e) {
+      console.log("There's an error", e);
+    }
+  };
+
+  const getAthleteInfo = async (athleteID) => {
+    try {
+      console.log("i made it in!", athleteID)
+      if (individualAthlete.length === 0) {
+        const data = await athletesCalls("get", athleteID, null)
+        console.log("athlete Info ", data)
+        setIndividualAthlete(data)
+      }
+  }
+    catch (e) {
       console.log("There's an error", e);
     }
   };
@@ -61,6 +77,8 @@ export const AthletesProvider = ({ children }) => {
         athletes, 
         setAthletes, 
         handleAthleteSubmit,
+        getAthleteInfo,
+        individualAthlete,
       }}
     >
       {children}

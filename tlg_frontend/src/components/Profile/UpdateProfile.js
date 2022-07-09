@@ -31,7 +31,8 @@ const defaultValues = {
   gender: "",
   weight: 0,
   dob: "",
-  team: 0
+  team: 0,
+  profile_picture: "",
 };
 
 const UpdateProfile = () => {
