@@ -16,7 +16,8 @@ import NewTeam from "./components/NewTeam/NewTeam";
 import { AppContextProvider } from "./Providers/AppContextProvider";
 import Layout from "./hocs/Layout";
 import Posts from "./components/Posts/Posts";
-import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
+import UpdateProfile from "./components/Profile/UpdateProfile";
+import Profile from "./components/Profile/Profile";
 import BellRinger from "./components/BellRinger/BellRinger";
 import LiftHistory from "./components/Lifts/LiftHistory";
 // import LiftDataGrid from "./components/Lifts/LiftDataGrid";
@@ -48,8 +49,9 @@ function App() {
               <Route path="/posts" element={<Posts />} />
               <Route path="/activate/:uid/:token" element={<Activate />} />
               <Route path="/new-team" element={<NewTeam />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/update-profile" element={<UpdateProfile />} />
-              <Route path='/bell-ringers' element={ <BellRinger /> } />
+              {/* <Route path='/bell-ringers' element={ <BellRinger /> } /> */}
               <Route path='/progress' element={<LiftHistory/>} />
               <Route path='/chat' element={ <Chat /> } />
               <Route path='/calendar' element={ <Calendar /> } />

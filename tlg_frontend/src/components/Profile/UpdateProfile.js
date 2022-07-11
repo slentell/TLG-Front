@@ -14,8 +14,10 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  IconButton,
 } from "@mui/material";
 
+import AddPhotoAlternateTwoToneIcon from "@mui/icons-material/AddPhotoAlternateTwoTone";
 import { useTeam } from "../../Providers/TeamProvider";
 import { AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -29,7 +31,8 @@ const defaultValues = {
   gender: "",
   weight: 0,
   dob: "",
-  team: 0
+  team: 0,
+  profile_picture: "",
 };
 
 const UpdateProfile = () => {
@@ -39,6 +42,9 @@ const UpdateProfile = () => {
   // this components state
   // const [date, setDate] = useState(new Date());
   const [formValues, setFormValues] = useState(defaultValues);
+  const [imgUpload, setImgUpload] = useState(false);
+  const [img, setImg] = useState(null);
+
   // const [athleteData, setAthleteData] = useAthletes()
   // event handlers
   const handleInputChange = (e) => {
@@ -173,7 +179,28 @@ const UpdateProfile = () => {
                 </select> 
               </FormControl>
             </Grid>
-
+            <Grid>
+              <FormControl>
+                <FormLabel
+                style={{ display: "flex", justifyContent: "center", marginTop: '10px'}}
+                >
+                  Upload a Profile Picture
+                </FormLabel>
+                  <IconButton onClick={() => setImgUpload((val) => !val)}>
+                  <AddPhotoAlternateTwoToneIcon />
+                </IconButton>
+              </FormControl>
+            </Grid>
+            <Grid>
+              {imgUpload && (
+                <input
+                  accept="image/*"
+                  type="file"
+                  id="select-image"
+                  onChange={(e) => {setImg(e.target.files[0].name)}}
+                />
+              )}
+            </Grid>
             <Button
               variant="contained"
               sx={{ mt: "20px", mb: "10px" }}
