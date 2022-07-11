@@ -58,25 +58,25 @@ const UpdateProfile = () => {
       // }
       
 
-  }
-  ) 
-  console.log(currentAthlete)
-  defaultValues = {
-    grade:currentAthlete.grade,
-    gender: currentAthlete.gender,
-    weight: currentAthlete.weight,
-    dob: currentAthlete.dob,
-    team: currentAthlete.team
-  };
-  console.log("default values", defaultValues)
-}
+
+  
+  // console.log(currentAthlete)
+  // defaultValues = {
+  //   grade:currentAthlete.grade,
+  //   gender: currentAthlete.gender,
+  //   weight: currentAthlete.weight,
+  //   dob: currentAthlete.dob,
+  //   team: currentAthlete.team
+  // };
+//   console.log("default values", defaultValues)
+// }
   
 
   
-  useEffect(() => {
-    getCurrentAthlete()
-  }
-  , [])
+  // useEffect(() => {
+  //   getCurrentAthlete()
+  // }
+  // , [])
 
 
   // event handlers
