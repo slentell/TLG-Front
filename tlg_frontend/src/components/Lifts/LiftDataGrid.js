@@ -64,7 +64,7 @@ export default function LiftDataGrid() {
 
     const getLifts = async () => {
         console.log('get lifts called')
-        await getLiftHistory(currentUser.id, true)
+        await getLiftHistory(currentUser.id)
     }
     // when the component mounts, get the lifts based off of user auth
     useEffect(() => {

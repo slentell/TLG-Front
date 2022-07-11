@@ -15,20 +15,6 @@ const AthleteLiftHistory = () => {
     console.log('lifts:', lifts);
     let dataLength = 0;
 
-    const generateLiftColor = (liftType) => {
-        if (liftType === "clean") {
-            return 'red'
-        }
-        else if (liftType === "clean_jerk") {
-            return 'green'
-        } 
-        else if (liftType === "snatch") {
-            return 'blue'
-        } 
-        else {
-            return 'purple'
-        }
-    }
     const getLifts = async () => {
         console.log('get lifts called')
         await getLiftHistory(currentUser.id, true)
@@ -45,22 +31,22 @@ const AthleteLiftHistory = () => {
 
     // creating dataset for each lift
     const createDataSet = () => {
-        const liftTypes = {'clean':'', 'clean_jerk':'', 'snatch':'', 'bench':''};
-        lifts.map((lift, idx)=> {
-            if (liftTypes[lift.lift]) {
+        const liftTypes = {
+                            'clean': {label: 'clean', backgroundColor: 'red', borderColor: 'red'}, 
+                            'clean_jerk':{label: 'clean_jerk', backgroundColor: 'green', borderColor: 'green'}, 
+                            'snatch':{label: 'snatch', backgroundColor: 'blue', borderColor: 'blue'}, 
+                            'bench':{label: 'bench', backgroundColor: 'purple', borderColor: 'purple'},
+                        };
+
+        lifts.map((lift)=> {
+            if (liftTypes[lift.lift]['data']) {
                 liftTypes[lift.lift]['data'].push(lift.weight)
             }
             else {
-                liftTypes[lift.lift] = 
-                {
-                    label: lift.lift,
-                    fill: false,
-                    lineTension: 0.5,
-                    backgroundColor: generateLiftColor(lift.lift),
-                    borderColor: generateLiftColor(lift.lift),
-                    borderWidth: 2,
-                    data: [lift.weight]
-                }
+                liftTypes[lift.lift].fill = false
+                liftTypes[lift.lift].borderWidth = 2
+                liftTypes[lift.lift].lineTension = 0.5
+                liftTypes[lift.lift].data = [lift.weight]
             }
         })
         console.log('lift types are ', Object.values(liftTypes))
@@ -71,7 +57,7 @@ const AthleteLiftHistory = () => {
     const data = {
         // labels are dates on x axis
         labels : lifts.map((lift) => ''),
-        datasets: createDataSet(),
+        datasets: createDataSet()
     }
     const displayGraph = () => {
         return (
