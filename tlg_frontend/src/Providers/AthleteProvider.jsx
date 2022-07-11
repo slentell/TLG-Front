@@ -31,6 +31,7 @@ export const AthletesProvider = ({ children }) => {
   };
 
   const handleAthleteSubmit = async (athleteData) => {
+    console.log('athlete Data:', athleteData);
     try {
       console.log("i made it in!")
       const data = await athletesCalls("post", "", athleteData);
