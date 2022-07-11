@@ -16,6 +16,7 @@ import {
   MenuItem,
   IconButton,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 import AddPhotoAlternateTwoToneIcon from "@mui/icons-material/AddPhotoAlternateTwoTone";
 import { useTeam } from "../../Providers/TeamProvider";
@@ -24,9 +25,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { useAthletes } from "../../Providers/AthleteProvider";
 import moment from "moment";
-import axios from "axios";
 
-const defaultValues = {
+import { useEffect } from "react";
+
+
+let defaultValues = {
   grade: "",
   gender: "",
   weight: 0,
@@ -37,15 +40,55 @@ const defaultValues = {
 
 const UpdateProfile = () => {
   // context handlers
-  const { handleAthleteSubmit } = useAthletes();
+  const {user: currentUser, isAuthenticated: auth} = useSelector((state) => state.auth);
+  const { athletes, handleAthleteSubmit } = useAthletes();
   const { team } = useTeam();
+  const [formValues, setFormValues] = useState(defaultValues);
+
   // this components state
   // const [date, setDate] = useState(new Date());
+<<<<<<< HEAD:tlg_frontend/src/components/UpdateProfile/UpdateProfile.js
+  
+=======
   const [formValues, setFormValues] = useState(defaultValues);
   const [imgUpload, setImgUpload] = useState(false);
   const [img, setImg] = useState(null);
 
+>>>>>>> main:tlg_frontend/src/components/Profile/UpdateProfile.js
   // const [athleteData, setAthleteData] = useAthletes()
+  console.log(athletes)
+  console.log(currentUser)
+  // let currentAthlete = athletes.map(athlete => athlete.athlete === currentUser.id)
+  // const getCurrentAthlete = () => {
+  //   let currentAthlete = athletes.map(athlete => {
+  //     if (athlete.athlete === currentUser.id) {
+  //       let currentAthlete = athlete
+      //  console.log('current athlete',currentAthlete)
+      //   return athlete
+      // }
+      
+
+
+  
+  // console.log(currentAthlete)
+  // defaultValues = {
+  //   grade:currentAthlete.grade,
+  //   gender: currentAthlete.gender,
+  //   weight: currentAthlete.weight,
+  //   dob: currentAthlete.dob,
+  //   team: currentAthlete.team
+  // };
+//   console.log("default values", defaultValues)
+// }
+  
+
+  
+  // useEffect(() => {
+  //   getCurrentAthlete()
+  // }
+  // , [])
+
+
   // event handlers
   const handleInputChange = (e) => {
     const { name, value } = e.target;
