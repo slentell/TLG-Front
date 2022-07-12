@@ -27,6 +27,7 @@ import { useAthletes } from "../../Providers/AthleteProvider";
 import moment from "moment";
 
 import { useEffect } from "react";
+import axios from "axios";
 
 
 let defaultValues = {
@@ -41,23 +42,21 @@ let defaultValues = {
 const UpdateProfile = () => {
   // context handlers
   const {user: currentUser, isAuthenticated: auth} = useSelector((state) => state.auth);
-  const { athletes, handleAthleteSubmit } = useAthletes();
+  const { athletes, handleAthleteSubmit, getAthleteInfo, individualAthlete, handleAthleteUpdate } = useAthletes();
   const { team } = useTeam();
-  const [formValues, setFormValues] = useState(defaultValues);
+
 
   // this components state
   // const [date, setDate] = useState(new Date());
-<<<<<<< HEAD:tlg_frontend/src/components/UpdateProfile/UpdateProfile.js
-  
-=======
+
   const [formValues, setFormValues] = useState(defaultValues);
   const [imgUpload, setImgUpload] = useState(false);
   const [img, setImg] = useState(null);
 
->>>>>>> main:tlg_frontend/src/components/Profile/UpdateProfile.js
+
   // const [athleteData, setAthleteData] = useAthletes()
-  console.log(athletes)
-  console.log(currentUser)
+  // console.log(athletes)
+  // console.log(currentUser)
   // let currentAthlete = athletes.map(athlete => athlete.athlete === currentUser.id)
   // const getCurrentAthlete = () => {
   //   let currentAthlete = athletes.map(athlete => {
@@ -67,6 +66,25 @@ const UpdateProfile = () => {
       //   return athlete
       // }
       
+useEffect(() => {
+  if (currentUser) {
+    getAthleteInfo(currentUser.id)
+    console.log(individualAthlete)
+    if (individualAthlete) {
+      setFormValues({
+      grade:individualAthlete.grade,
+      gender:individualAthlete.gender,
+      weight:individualAthlete.weight,
+      dob: individualAthlete.dob,
+      team: individualAthlete.team
+      })
+      
+  }
+    else {
+      setFormValues(defaultValues)
+    }
+}
+}, [currentUser, getAthleteInfo, individualAthlete])
 
 
   
@@ -113,8 +131,16 @@ const UpdateProfile = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formValues)
-    handleAthleteSubmit(formValues);
+    console.log('form values:', formValues)
+    if (individualAthlete) {
+      console.log("updating athlete")
+      console.log('individual:',individualAthlete)
+      await handleAthleteUpdate(formValues, individualAthlete.id)
+      console.log('id:',individualAthlete.id)
+    } else {
+      console.log("creating athlete")
+      await handleAthleteSubmit(formValues);
+  };
   };
 
   return (

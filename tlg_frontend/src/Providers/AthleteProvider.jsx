@@ -18,7 +18,7 @@ export const AthletesProvider = ({ children }) => {
           authorization: `JWT ${localStorage.getItem("access")}`,
         },
       };
-
+      console.log('this is the end: ',endpoint)
       payload.url = endpoint
         ? `${process.env.REACT_APP_API_URL}/tlg/athlete/${endpoint}/`
         : `${process.env.REACT_APP_API_URL}/tlg/athlete/`;
@@ -31,6 +31,18 @@ export const AthletesProvider = ({ children }) => {
         console.error(`Error ${method} call for Athletes`, error.message);
     }
   };
+
+  const handleAthleteUpdate = async (athleteData, id) => {
+    console.log('athlete Data:', athleteData);
+    try {
+      console.log("i made it in!")
+      console.log('athlete data id', id)
+      const data = await athletesCalls("put", id , athleteData);
+      console.log("AthleteData: ", data);
+    } catch (e) {
+      console.log("There's an error", e);
+    }
+  }
 
   const handleAthleteSubmit = async (athleteData) => {
     console.log('athlete Data:', athleteData);
@@ -80,6 +92,7 @@ export const AthletesProvider = ({ children }) => {
         handleAthleteSubmit,
         getAthleteInfo,
         individualAthlete,
+        handleAthleteUpdate,
       }}
     >
       {children}
