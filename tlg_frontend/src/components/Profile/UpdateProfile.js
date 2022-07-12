@@ -58,7 +58,6 @@ const UpdateProfile = () => {
   };
 
   const handleImageChange = (e) => {
-    console.log('e ', e)
     setFormValues({
       ...formValues,
       profile_picture: e,
@@ -214,7 +213,6 @@ const UpdateProfile = () => {
                   accept="image/*"
                   type="file"
                   id="select-image"
-                  name="profile_picture"
                   onChange={(e) => {handleImageChange(e.target.files[0].name)}}
                   // onChange={(e) => {setImg(e.target.files[0].name)}}
                 />
