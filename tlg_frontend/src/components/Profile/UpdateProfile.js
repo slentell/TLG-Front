@@ -43,11 +43,12 @@ const UpdateProfile = () => {
   // const [date, setDate] = useState(new Date());
   const [formValues, setFormValues] = useState(defaultValues);
   const [imgUpload, setImgUpload] = useState(false);
-  const [img, setImg] = useState(null);
+  // const [img, setImg] = useState(null);
 
   // const [athleteData, setAthleteData] = useAthletes()
   // event handlers
   const handleInputChange = (e) => {
+    console.log('e ', e)
     const { name, value } = e.target;
 
     setFormValues({
@@ -55,6 +56,14 @@ const UpdateProfile = () => {
       [name]: value,
     });
   };
+
+  const handleImageChange = (e) => {
+    console.log('e ', e)
+    setFormValues({
+      ...formValues,
+      profile_picture: e,
+    });
+  }
   
   const handleChange = (date) => {
     console.log("WHAT I THINK THE DATE IS", date)
@@ -76,8 +85,16 @@ const UpdateProfile = () => {
 
   return (
     <Box>
+      <Button
+            variant="contained"
+            sx={{ m: 2 }}
+            style={{ backgroundColor: "black" }}
+            href="/profile"
+      >
+        Return to Profile
+      </Button>
       <Typography
-        style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
+        style={{ display: "flex", justifyContent: "center", marginTop: "25px" }}
         variant="h3"
       >
         Update Your Profile
@@ -85,7 +102,7 @@ const UpdateProfile = () => {
       <Container
         sx={{
           backgroundColor: "lightgray",
-          mt: "80px",
+          mt: "50px",
           borderRadius: "30px",
           width: "50%",
         }}
@@ -97,7 +114,7 @@ const UpdateProfile = () => {
             justify="center"
             direction="column"
           >
-            <Grid sx={{ mt: "20px" }} item style={{ width: "200px" }}>
+            <Grid sx={{ mt: "10px" }} item style={{ width: "200px" }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Grade</InputLabel>
                 <Select
@@ -197,7 +214,9 @@ const UpdateProfile = () => {
                   accept="image/*"
                   type="file"
                   id="select-image"
-                  onChange={(e) => {setImg(e.target.files[0].name)}}
+                  name="profile_picture"
+                  onChange={(e) => {handleImageChange(e.target.files[0].name)}}
+                  // onChange={(e) => {setImg(e.target.files[0].name)}}
                 />
               )}
             </Grid>
@@ -206,6 +225,7 @@ const UpdateProfile = () => {
               sx={{ mt: "20px", mb: "10px" }}
               style={{ backgroundColor: "black" }}
               type="submit"
+              href="/profile"
             >
               Submit
             </Button>

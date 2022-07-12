@@ -51,13 +51,10 @@ function App() {
               <Route path="/new-team" element={<NewTeam />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/update-profile" element={<UpdateProfile />} />
-              {/* <Route path='/bell-ringers' element={ <BellRinger /> } /> */}
+              <Route path='/bell-ringers' element={ <BellRinger /> } />
               <Route path='/progress' element={<LiftHistory/>} />
               <Route path='/chat' element={ <Chat /> } />
               <Route path='/calendar' element={ <Calendar /> } />
-              {/*
-            <Route path='/calendar' element={ <ImageGallery /> } />
-          */}
             </Routes>
           </Layout>
         

@@ -15,7 +15,7 @@ const PersonalInfoCard = () => {
   }
   useEffect(() => {
     if(currentUser) getAthleteInformation()
-}, [currentUser, getAthleteInformation])
+  }, [currentUser, getAthleteInformation])
 
   useEffect(()  => {
     getAthleteInformation()

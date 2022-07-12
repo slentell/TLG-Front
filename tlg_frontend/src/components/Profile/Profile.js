@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Avatar, Box, Grid, Card } from "@mui/material";
+import { Avatar, Box, Grid, Card, Button } from "@mui/material";
 // import AthleteMaxList from "../AthleteMaxList/AthleteMaxList";
 import PersonalInfoCard from "../PersonalInfoCard/PersonalInfoCard";
 import LiftHistory from "../Lifts/LiftHistory";
@@ -19,8 +19,9 @@ const ViewAthleteDetail = () => {
           </Grid>
 
         <Grid item sx={4}>
-            <Card sx={{ marginTop: 5 }}>
+            <Card sx={{ marginTop: 3 }}>
             <PersonalInfoCard />
+            <Button variant="outlined" href="/update-profile" sx={{ margin:1 }}>Edit Profile</Button>
             </Card>
         </Grid>
         </Grid>
