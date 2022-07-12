@@ -15,6 +15,7 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import EmojiPeopleTwoToneIcon from "@mui/icons-material/EmojiPeopleTwoTone";
 import SportsTwoToneIcon from "@mui/icons-material/SportsTwoTone";
 import ChatIcon from "@mui/icons-material/Chat";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
   Drawer,
   ListItem,
@@ -40,6 +41,7 @@ import WeatherModal from "../WeatherModal/WeatherModal";
 
 const data = [
   { name: "Home", icon: <HomeOutlined />, path: "/" },
+  { name: "Profile", icon: <AccountCircleIcon />, path: "/profile" },
   { name: "Add a lift sesh", icon: <AddIcon />, path: "/add-lift-session" },
   { name: "Track your progress", icon: <AssessmentIcon />, path: "/progress" },
   { name: "View Posts", icon: <InboxOutlined />, path: "/posts" },

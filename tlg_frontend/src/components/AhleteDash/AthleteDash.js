@@ -20,7 +20,7 @@ const AthleteDash = () => {
       description: 'View and edit your personal information',
       button: 'Go to profile',
 
-      path: '/update-profile',
+      path: '/profile',
     
     },
     {
